@@ -1,9 +1,6 @@
 # bffr_test_mern
 
-In the backend folder:
-Npm install express
-npm install -g nodemon
-npm install dotenv
-Npm install mongoose
+In the backend and front end folder run:
+Npm install 
 
-Need to send my .env file
+make sure to add the .env file into the backend before running
