@@ -55,7 +55,7 @@ function App() {
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_BACKEND_URL}>
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="sign-up" element={<SignUp />} />

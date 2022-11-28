@@ -1,7 +1,7 @@
 {
-  "homepage": "http://medha4.github.io/bffr_test_mern",
   "name": "flask_react",
   "version": "0.1.0",
+  "homepage": "http://medha4.github.io/bffr_test_mern",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -20,10 +20,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy" : "npm run build",
-	"deploy" : "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start-backend": "cd backend && env/bin/flask run --no-debugger",
-    "build": "react-scripts build",
+    "build": "BACKEND_URL='Bffrapp-env.eba-yhbuhmmw.us-east-1.elasticbeanstalk.com' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

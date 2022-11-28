@@ -74,10 +74,12 @@ function SignUp() {
       setStatusMessage2("Username too short");
     } else {
       console.log(user);
-      axios.post("http://localhost:4000/api/users/", { user }).then((res) => {
-        console.log(res);
-        console.log(res.data);
-      });
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/`, { user })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
       let path = "../phone-verify";
       navigate(path, { state: { number: "6464622111", name: "shay" } });
     }
