@@ -58,7 +58,7 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<LogIn />} />
-        <Route path="sign-up" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="phone-verify" element={<PhoneVerification />} />
         <Route path="profile" element={<Profile />} />
         <Route path="feed" element={<Feed />} />
