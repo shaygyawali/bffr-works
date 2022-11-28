@@ -55,7 +55,7 @@ function App() {
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
   return (
-    <BrowserRouter basename={process.env.REACT_APP_BACKEND_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="sign-up" element={<SignUp />} />
@@ -63,7 +63,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="feed" element={<Feed />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
