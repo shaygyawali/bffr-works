@@ -1,5 +1,5 @@
 {
-  "proxy":"http://localhost:4000",
+  "homepage": http://medha4.github.io/bffr_test_mern
   "name": "flask_react",
   "version": "0.1.0",
   "private": true,
@@ -20,6 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy" : "npm run build",
+	"deploy" : "gh-pages -d build",
     "start-backend": "cd backend && env/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
