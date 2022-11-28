@@ -2,7 +2,7 @@ import { useState } from "react";
 import Component from "react";
 import axios from "axios";
 import "./App.css";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
 import "intl-tel-input/build/css/intlTelInput.css";
 
