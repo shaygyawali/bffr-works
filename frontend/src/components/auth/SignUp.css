@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+body{
+  background-color: #111111;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+  .dot {
+    position: absolute;
+    width: 1204.69px;
+    height: 1204.69px;
+    left: -427.79px;
+    top: 303px;
+    
+    background: radial-gradient(49.99% 49.99% at 50.19% 50.01%, #2F2751 0%, rgba(43, 42, 99, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .dot2{
+    position: absolute;
+    width: 1204.69px;
+    height: 1204.69px;
+    left: -833.21px;
+    top: -298px;
+    
+    background: radial-gradient(49.99% 49.99% at 50.19% 50.01%, #3E2751 0%, rgba(43, 42, 99, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .dot3 {
+    position: absolute;
+    width: 1204.69px;
+    height: 1204.69px;
+    right: -827.79px;
+    top: -298px;
+    
+    background: radial-gradient(49.99% 49.99% at 50.19% 50.01%, #2F2751 0%, rgba(43, 42, 99, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .dot4{
+    position: absolute;
+    width: 1204.69px;
+    height: 1204.69px;
+    right: -633.21px;
+    top: -833px;
+    
+    background: radial-gradient(49.99% 49.99% at 50.19% 50.01%, #3E2751 0%, rgba(43, 42, 99, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .dot5{
+    position: relative;
+
+    width: 200px;
+    height: 200px;
+    border-radius: 250px;
+
+    bottom: 50px;
+    
+    background: radial-gradient(81.25% 81.25% at 67.32% 18.75%, #17B3A9 0%, #0945DF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .dot6{
+    position: relative;
+    width: 270px;
+    height: 270px;
+    border-radius: 250px;
+
+    top: 150px;
+    
+    background: radial-gradient(81.25% 81.25% at 67.32% 18.75%, #17B3A9 0%, #0945DF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transform: rotate(42.88deg);
+  }
+
+  .accentBalls{
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .logoHolder{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    margin: auto;
+    width: 100%;
+  }
+
+  .mainContainer {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signUpContainer{
+    position: relative;
+    width: 40%;
+    height: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    top: 50px;
+
+    background: linear-gradient(151.76deg, rgba(231, 222, 255, 0.24) -18.46%, rgba(231, 222, 255, 0) 105.7%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 40px;
+    margin-top: 110px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    color: white; 
+    width: 70%;
+  }
+
+  label{
+    width: 100%;
+    align-items: center;
+  }
+
+  input{
+    display: flex;
+    flex-direction: column;
+    height: 10%; 
+  }
+
+  .phoneInput{
+    width: 100%;
+    height: 50px;
+    background: rgba(80, 80, 80, 0.5);
+    outline: none;
+    border: none;
+    border-radius: 30px; 
+    padding-left: 29px;
+    font-size:25px;
+    margin-top: -10px;
+    font-family: 'Inter';
+    font-weight: 400;
+
+  }
+
+  .phoneInput, select, textarea{
+    color: white;
+  }
+
+  textarea:focus, .phoneInput:focus {
+    color: white;
+  }
+
+
+  .submitButton{
+    width: 60%;
+    height: 50px;
+    border-radius: 70px;
+    background: linear-gradient(90deg, #9617DD 0%, #D60BCD 100%);
+    border-radius: 70px;
+    outline: none;
+    border: none;
+    margin: auto;
+    margin-top: 20px;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .title {
+    position: relative;
+    top: 0;
+    margin: 0;
+
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 800;
+    font-size: 150px;
+
+    background: linear-gradient(180deg, #9617DD 33.16%, #DF09CA 103.74%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+  }
+
+  .subtitle{
+    position: relative;
+    top: 0;
+    margin-top: -30px;
+
+    font-style: italic;
+    font-size: 40px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+  }
+
+  .numberTxt{
+    font-family: 'Inter';
+    font-weight: 600;
+    margin-left: 20px;
+  }
+
+  .createAccountTxt{
+    margin-top: 70px;
+    color: white;
+    font-family: 'inter';
+    font-weight: 600;
+  }
+
+  a:visited{
+    color: white;
+  }

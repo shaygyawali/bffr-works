@@ -1,0 +1,78 @@
+body{
+    overflow-y: scroll;
+}
+
+.App{
+    display: flex;
+    flex-direction: column;
+}
+
+span{
+    z-index: 0;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 2;
+}
+
+.profilePicture{
+    width: 70px;
+    height: 70px;
+    object-fit: fill;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+.search{
+    width: 60px;
+    height: 60px;
+    margin-left: 30px;
+}
+
+.headerTitle{
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 900;
+    font-size: 100px;
+
+    background: linear-gradient(180deg, #9617DD 33.16%, #DF09CA 103.74%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    width: 100%;
+}
+
+.songs{
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    z-index: 1;
+    
+}
+
+.selfSong{
+    width: fit-content;
+    margin: auto;
+    margin-top: 150px;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
+hr{
+    width: 50%;
+    margin-top: 0px;
+    opacity: 20%;
+}
+

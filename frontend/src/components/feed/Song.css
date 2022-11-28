@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+.Song{
+    width: 400px;
+    height: 450px;
+    margin-top: 20px;
+}
+.songInfo{
+    position: relative;
+    width: 217px;
+    height: 300px;
+    background: linear-gradient(151.76deg, rgba(231, 222, 255, 0.24) -18.46%, rgba(231, 222, 255, 0) 105.7%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    z-index: 1;
+    margin: auto;
+}
+
+.songDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin-top: 30px;
+}
+
+p{
+    margin: 0;
+}
+
+.songImg{
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.songTitle{
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.artistName{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    color: #FFFFFF
+}
+
+.fire {
+    position: relative;
+    width: 80px;
+    z-index: 0;
+    bottom: 150px;
+    left: 115px;
+}
+
+.profilePic{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 2;
+    top: 40px;
+    right: 100px;
+}
