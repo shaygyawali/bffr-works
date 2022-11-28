@@ -55,7 +55,7 @@ function App() {
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
   return (
-    <HashRouter>
+    <HashRouter basename="/#">
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="sign-up" element={<SignUp />} />
