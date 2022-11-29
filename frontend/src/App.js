@@ -2,7 +2,7 @@ import { useState } from "react";
 import Component from "react";
 import axios from "axios";
 import "./App.css";
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import "intl-tel-input/build/css/intlTelInput.css";
 
@@ -55,7 +55,7 @@ function App() {
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="sign-up" element={<SignUp />} />
@@ -63,7 +63,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="feed" element={<Feed />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
