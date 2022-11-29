@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Component from 'react';
 import axios from "axios";
 import './LogIn.css';
@@ -13,6 +13,29 @@ function LogIn() {
   const [userNumber, setUserNumber] = useState("")
   const [userName, setUserName] = useState("")
   const [statusMessage, setStatusMessage] = useState("none")
+
+  /* */
+  //Spotify login link constants
+  const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
+  const REDIRECT_URI = "http://localhost:3000/feed";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
+
+  const [token, setToken] = useState("");
+
+  //taking token from the url and saving it locally
+  useEffect( () => {
+      const hash = window.location.hash;
+      let token = window.localStorage.getItem("token");
+      console.log(token)
+      if(!token && hash){
+        token = hash.substring(1).split("&").find(e => e.startsWith("access_token")).split("=")[1]
+
+        window.location.hash = ""
+        window.localStorage.setItem("token",token)
+        setToken(token)
+      }
+  },[]);
 
 
   function updateNumber(evt){
@@ -89,7 +112,7 @@ function LogIn() {
 
         <div class="loginContainer"> 
           <form>
-            <h2 class = "numberTxt"> Phone Number </h2>
+            {/* <h2 class = "numberTxt"> Phone Number </h2>
 
             <input class = "phoneInput" type="tel" name="name" placeholder="000-000-0000"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" onChange={evt => updateNumber(evt)}/>
@@ -97,7 +120,12 @@ function LogIn() {
             { (statusMessage != "none") === true ? (<p class = "statusMessage"> {statusMessage} </p>) : null }
 
 
-            <button class = "submitButton" type="submit" onClick={routeChange} value="Log In -->" > Log In --> </button>
+            <button class = "submitButton" type="submit" onClick={routeChange} value="Log In -->" > Log In --> </button> */}
+            
+            {/* {!token ?  */}
+            <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+            {/* : <button>Logout</button>
+            } */}
             <p value={userNumber}></p>
           </form>
         </div>
