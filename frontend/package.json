@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-backend": "cd backend && env/bin/flask run --no-debugger",
-    "build": "BACKEND_URL='Bffrapp-env.eba-yhbuhmmw.us-east-1.elasticbeanstalk.com' react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
