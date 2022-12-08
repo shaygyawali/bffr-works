@@ -17,7 +17,7 @@ function LogIn() {
   /* */
   //Spotify login link constants
   const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
-  const REDIRECT_URI = "http://bffr.netlify/feed";
+  const REDIRECT_URI = "http://bffr.netlify.app/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const scope = "user-read-recently-played user-read-currently-playing";

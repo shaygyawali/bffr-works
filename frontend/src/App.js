@@ -9,7 +9,7 @@ import "intl-tel-input/build/css/intlTelInput.css";
 import LogIn from "./components/auth/LogIn";
 import SignUp from "./components/auth/SignUp";
 import PhoneVerification from "./components/auth/PhoneVerification";
-import Profile from "./components/Profile";
+import Profile from "./components/auth/Profile";
 import Feed from "./components/feed/Feed";
 
 function App() {
