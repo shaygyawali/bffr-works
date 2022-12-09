@@ -3,14 +3,22 @@ import Component from "react";
 import axios from "axios";
 import "./SignUp.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import SpotifyAuth from './SpotifyAuth'
+import userController from '../../../../backend/controllers/userController'
 
 function SignUp() {
   // new line start
   const [profileData, setProfileData] = useState(null);
   const [userNumber, setUserNumber] = useState("");
   const [userName, setUserName] = useState("");
+  const [userPwd, setUserPwd] = useState("");
   const [statusMessage, setStatusMessage] = useState("none");
   const [statusMessage2, setStatusMessage2] = useState("none");
+  const [statusMessage3, setStatusMessage3] = useState("none");
+  const REGISTER_URL = "/signup"
+  const User = require("./db/userModel");
+  const bcrypt = require("bcrypt");
+
 
   let names = [
     "Nicki Minaj",
@@ -37,35 +45,24 @@ function SignUp() {
     console.log(userName);
   }
 
+  function updatePwd(evt){
+    setUserPwd(evt.target.value);
+    setStatusMessage3("none");
+    console.log(userPwd);
+  }
+
   let navigate = useNavigate();
-  // const routeChange = () => {
-  //   console.log(userNumber);
-  //   if (userNumber.length > 12 || userNumber.length < 12) {
-  //     setStatusMessage("Phone number not valid");
-  //   }
-  //   if (userName.length < 4) {
-  //     setStatusMessage2("Username too short");
-  //   } else {
-  //     let path = "../phone-verify";
-  //     navigate(path, { state: { number: "6464622111", name: "shay" } });
-  //   }
-  // };
+
   const routeChange = (event) => {
     event.preventDefault();
     const user = {
-      // name: userName,
-      // username: userName,
-      // password: userNumber,
-      // number: userNumber,
-      // friendsList: [],
-      // checkedIn: true,
-      name: "medha",
-      username: "medha4",
-      password: "703-270-8086",
-      number: "703-270-8086",
-      friendsList: ["hello", "banana"],
-      checkedIn: true,
+      name: userName,
+      password: userPwd,
+      number: userNumber,
+      friendsList: [],
+      checkedIn: false,
     };
+
     console.log(userNumber);
     if (userNumber.length > 12 || userNumber.length < 12) {
       setStatusMessage("Phone number not valid");
@@ -75,13 +72,14 @@ function SignUp() {
     } else {
       console.log(user);
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/`, { user })
+      //`${process.env.REACT_APP_BACKEND_URL}/api/users/`
+        .post(userController, { user })
         .then((res) => {
           console.log(res);
           console.log(res.data);
         });
       let path = "../phone-verify";
-      navigate(path, { state: { number: "6464622111", name: "shay" } });
+      navigate(path, { state: { number: userNumber, name: userName, pwd: userPwd } });
     }
   };
 
@@ -168,6 +166,18 @@ function SignUp() {
             />
             {(statusMessage != "none") === true ? (
               <p class="statusMessage"> {statusMessage} </p>
+            ) : null}
+
+            <h2 class="numberTxt"> Password </h2>
+            <input
+              class="pwdInput"
+              type="text"
+              name="Password"
+              maxlength="50"
+              onChange={(evt) => updatePwd(evt)}
+            />
+            {(statusMessage2 != "none") === true ? (
+              <p class="statusMessage"> {statusMessage2} </p>
             ) : null}
 
             <button
