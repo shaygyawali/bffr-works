@@ -73,7 +73,7 @@ function SignUp() {
       console.log(user);
       axios
       //`${process.env.REACT_APP_BACKEND_URL}/api/users/`
-        .post(userController, { user })
+        .post(userController.createUser, { user })
         .then((res) => {
           console.log(res);
           console.log(res.data);

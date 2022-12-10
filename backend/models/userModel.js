@@ -24,6 +24,10 @@ const userSchema = new Schema(
       type: Array,
       required: true,
     },
+    pendingFriendsList: {
+      type: Array,
+      required: true,
+    },
     checkedIn: {
       type: Boolean,
       required: true,
@@ -49,6 +53,10 @@ const userSchema = new Schema(
       },
       songLink: {
         type: String,
+        required: true,
+      },
+      pmos: {
+        type: Number,
         required: true,
       },
       required: false,

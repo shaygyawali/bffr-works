@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import Component from 'react';
+import { useEffect, useState } from "react";
+import Component from "react";
 import axios from "axios";
 import './LogIn.css';
 import {Routes, Route, useNavigate} from 'react-router-dom'
@@ -7,28 +7,27 @@ import SignUp from './SignUp'
 import SpotifyAuth from './SpotifyAuth'
 
 
-import 'intl-tel-input/build/css/intlTelInput.css';
+import "intl-tel-input/build/css/intlTelInput.css";
 
 function LogIn() {
-   // new line start
-  const [profileData, setProfileData] = useState(null)
-  const [userNumber, setUserNumber] = useState("")
-  const [userName, setUserName] = useState("")
-  const [statusMessage, setStatusMessage] = useState("none")
+  // new line start
+  const [profileData, setProfileData] = useState(null);
+  const [userNumber, setUserNumber] = useState("");
+  const [userName, setUserName] = useState("");
+  const [statusMessage, setStatusMessage] = useState("none");
 
 
-
-  function updateNumber(evt){
-    setUserNumber(evt.target.value)
-    setStatusMessage("none")
-    console.log(userNumber)
+  function updateNumber(evt) {
+    setUserNumber(evt.target.value);
+    setStatusMessage("none");
+    console.log(userNumber);
   }
 
-  let navigate = useNavigate(); 
-  const routeChange = () =>{
-    console.log(userNumber)
-    if(userNumber.length > 12 || userNumber.length < 12){
-        setStatusMessage("Phone number not valid")
+  let navigate = useNavigate();
+  const routeChange = () => {
+    console.log(userNumber);
+    if (userNumber.length > 12 || userNumber.length < 12) {
+      setStatusMessage("Phone number not valid");
     } else {
       //TODO: grab the phone number, find user, then verify with pwd
       //then phone verify, then
@@ -41,56 +40,56 @@ function LogIn() {
   function getData() {
     axios({
       method: "GET",
-      url:"/",
+      url: "/",
     })
-    .then((response) => {
-      const res =response.data
-      setProfileData(({
-        profile_name: res.name,
-        about_me: res.about}))
-    }).catch((error) => {
-      if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
+      .then((response) => {
+        const res = response.data;
+        setProfileData({
+          profile_name: res.name,
+          about_me: res.about,
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
         }
-    })}
-    //end of new line 
+      });
+  }
+  //end of new line
 
-    const inputProps = {
-      placeholder: 'ReactIntlTelInput',
-    };
-   
-    const intlTelOpts = {
-      preferredCountries: ['cn'],
-    };
-   
-    const value = { iso2: 'cn', dialCode: '86', phone: '12345678901' };
-   
-    const onChange = value => console.log(value);
-    const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);
+  const inputProps = {
+    placeholder: "ReactIntlTelInput",
+  };
+
+  const intlTelOpts = {
+    preferredCountries: ["cn"],
+  };
+
+  const value = { iso2: "cn", dialCode: "86", phone: "12345678901" };
+
+  const onChange = (value) => console.log(value);
+  const onReady = (instance, IntlTelInput) =>
+    console.log(instance, IntlTelInput);
 
   return (
     <div class="App">
+      <span class="dot"></span>
+      <span class="dot2"></span>
+      <span class="dot3"></span>
+      <span class="dot4"></span>
 
-        <span class="dot"></span>
-        <span class="dot2"></span>
-        <span class="dot3"></span>
-        <span class="dot4"></span>
-
-        <div class = "accentBalls">
-          <span class="dot5"></span>
-          <span class="dot6"></span>
-        </div>
-
-
-      <div class="logoHolder">
-          <h1 class = "title"> BFFR </h1>
-          <h2 class = "subtitle"> Friends' Music Now </h2>
+      <div class="accentBalls">
+        <span class="dot5"></span>
+        <span class="dot6"></span>
       </div>
 
-      <div class="mainContainer" >
-
+      <div class="logoHolder">
+        <h1 class="title"> BFFR </h1>
+        <h2 class="subtitle"> Friends' Music Now </h2>
+      </div>
+      <div class="mainContainer">
         <div class="loginContainer"> 
         {/*TODO: 
           *if login is successful, render SpotifyAuth
@@ -113,18 +112,15 @@ function LogIn() {
           </form>
         </div>
 
-       
-          <h2 class = "createAccountTxt"> 
-            <a href={'sign-up'} style={{textDecoration: 'none'}}>
-          New here? Sign Up
-            </a>
-          </h2>
-
+        <h2 class="createAccountTxt">
+          <a href={"sign-up"} style={{ textDecoration: "none" }}>
+            New here? Sign Up
+          </a>
+        </h2>
       </div>
-
     </div>
 
-   /* <div>
+    /* <div>
       <center>
       <h1>BFFR</h1><br></br>
       <ul>
@@ -141,7 +137,7 @@ function LogIn() {
       </center>
     </div>
 */
-  )
+  );
 }
 
-export default LogIn
+export default LogIn;
