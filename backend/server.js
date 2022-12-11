@@ -1,14 +1,14 @@
-require("dotenv").config();
-const cors = require("cors");
+import cors from "cors";
 
-const express = require("express");
+import express from "express";
 
-var bodyParser = require("body-parser");
+import bodyParser from "body-parser";
 
 //express app
 const app = express();
-const mongoose = require("mongoose");
-const usersRoutes = require("./routes/users");
+import mongoose from "mongoose";
+import { userRoutes } from "./routes/users.js";
+import connectDB from "./db/conn.js";
 
 // create application/json parser
 var jsonParser = bodyParser.json();
@@ -32,17 +32,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the App!" });
 });
 
-app.use("/api/users", urlencodedParser, usersRoutes);
+app.use("/api/users", urlencodedParser, userRoutes);
 
-//connect to db
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    //listen for requests
-    app.listen(process.env.PORT, () => {
-      console.log("listening on port 4000!");
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+connectDB(); //this function connects us to the DB!!!
