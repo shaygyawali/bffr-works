@@ -116,16 +116,28 @@ const SelfSongHold = () => (
 );
 
 function changeStatus(){
-  
+  console.log("change the status here")
 }
 
 function Feed(props) {
+  let navigate = useNavigate();
+  const searchRoute = () => {
+  let path = "../search";
+  navigate(path);
+  };
+
   if(self.checkedIn){
     return (
       <div class="App">
         {/* <Navbar /> */}
         <div class="header">
-          <img class="search" src={search} />
+        <button
+              class="search"
+              type="submit"
+              onClick={searchRoute}
+        >
+            <img class="search" src={search} />
+          </button>
           <p class="headerTitle"> BFFR </p>
           <img class="profilePicture" src={self.profilePic} />
         </div>
