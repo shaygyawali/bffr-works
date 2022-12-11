@@ -1,9 +1,12 @@
-const User = require("../models/userModel");
-const mongoose = require("mongoose");
+// const User = require("../models/userModel");
+// const mongoose = require("mongoose");
+
+import User from "../models/userModel.js";
+import mongoose from "mongoose";
 
 //get all users
 
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
 
   res.status(200).json(users);
@@ -11,7 +14,7 @@ const getUsers = async (req, res) => {
 
 //get a single user
 
-const getUser = async (req, res) => {
+export const getUser = async (req, res) => {
   //function to search for a friend/user
   const { id } = req.params;
 
@@ -29,7 +32,7 @@ const getUser = async (req, res) => {
 };
 
 //create a new user
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   console.log(req.body);
 
   const { name, username, password, number, friendsList, checkedIn } = req.body;
@@ -53,7 +56,7 @@ const createUser = async (req, res) => {
 
 //delete a user
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   //to be fully implemented later
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -70,7 +73,7 @@ const deleteUser = async (req, res) => {
 
 //updare a user
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such user" });
@@ -84,10 +87,16 @@ const updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  deleteUser,
-  updateUser,
-};
+// module.exports = {
+//   getUsers,
+//   getUser,
+//   createUser,
+//   deleteUser,
+//   updateUser,
+// };
+
+// export const createUser;
+// export const getUsers;
+// export const getUser;
+// export const deleteUser;
+// export const updateUser;
