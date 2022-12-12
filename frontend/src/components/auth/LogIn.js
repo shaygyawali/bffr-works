@@ -4,6 +4,7 @@ import axios from "axios";
 import "./LogIn.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SignUp from "./SignUp";
+import SpotifyAuth from './SpotifyAuth';
 
 import "intl-tel-input/build/css/intlTelInput.css";
 
@@ -13,43 +14,6 @@ function LogIn() {
   const [userNumber, setUserNumber] = useState("");
   const [userName, setUserName] = useState("");
   const [statusMessage, setStatusMessage] = useState("none");
-
-  /* */
-  //Spotify login link constants
-  const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
-  const REDIRECT_URI = "http://bffr.netlify.app/feed";
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
-  const scope = "user-read-recently-played user-read-currently-playing";
-  const state = "";
-  var url = AUTH_ENDPOINT;
-  url += "?response_type=" + encodeURIComponent(RESPONSE_TYPE);
-  url += "&client_id=" + encodeURIComponent(CLIENT_ID);
-  url += "&scope=" + encodeURIComponent(scope);
-  url += "&redirect_uri=" + encodeURIComponent(REDIRECT_URI);
-  // url += '&state=' + encodeURIComponent(state);
-
-  const [token, setToken] = useState("");
-  const [path, setPath] = useState("");
-
-  //taking token from the url and saving it locally
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-    console.log("THIS IS OUR TOKEN ------>  ", token);
-
-    if (!token && hash) {
-      token = hash
-        .substring(2)
-        .split("&")
-        .find((e) => e.startsWith("access_token"))
-        .split("=")[1];
-
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-      setToken(token);
-    }
-  }, []);
 
   function updateNumber(evt) {
     setUserNumber(evt.target.value);
@@ -123,8 +87,15 @@ function LogIn() {
 
       <div class="mainContainer">
         <div class="loginContainer">
-          <form>
-            {/* <h2 class = "numberTxt"> Phone Number </h2>
+            
+            {/*TODO: 
+          *if login is successful, render SpotifyAuth
+        */}
+
+         <SpotifyAuth></SpotifyAuth>
+
+        <form >
+            <h2 class = "numberTxt"> Phone Number </h2>
 
             <input class = "phoneInput" type="tel" name="name" placeholder="000-000-0000"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" onChange={evt => updateNumber(evt)}/>
@@ -132,14 +103,12 @@ function LogIn() {
             { (statusMessage != "none") === true ? (<p class = "statusMessage"> {statusMessage} </p>) : null }
 
 
-            <button class = "submitButton" type="submit" onClick={routeChange} value="Log In -->" > Log In --> </button> */}
+            <button class = "submitButton" type="submit" onClick={routeChange} value="Log In -->" > Log In --> </button>
+            
 
-            {/* {!token ?  */}
-            {/* {`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`} */}
-            <a href={url}>Login to Spotify</a>
-            {/* : <button>Logout</button>
-            } */}
+  
             <p value={userNumber}></p>
+
           </form>
         </div>
 

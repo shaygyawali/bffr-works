@@ -12,6 +12,7 @@ import PhoneVerification from "./components/auth/PhoneVerification";
 import Profile from "./components/Profile";
 import Feed from "./components/feed/Feed";
 
+
 function App() {
   // new line start
   /*const [profileData, setProfileData] = useState(null)

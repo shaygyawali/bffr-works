@@ -7,6 +7,7 @@ import {
   updateUser,
 } from "../controllers/userController.js";
 
+
 const router = express.Router();
 
 //get all users
@@ -16,7 +17,13 @@ router.get("/", getUsers);
 router.get("/:id", getUser);
 
 //post a new user
-router.post("/", createUser);
+router.post(
+  '/createUser', 
+  async (res, req) => {
+    const username = req.params.userName
+    console.log(username)
+    return res.json(res)
+  });
 
 //delete a user
 router.delete("/:id", deleteUser);
@@ -27,5 +34,5 @@ router.patch("/:id", updateUser);
 // module.exports = router;
 // export default router;
 
-export { router as userRoutes };
+module.exports = {default: router};
 // export { userRoutes as userRoutes };
