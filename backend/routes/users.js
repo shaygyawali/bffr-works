@@ -16,6 +16,12 @@ router.get("/", getUsers);
 //get a single user
 router.get("/:id", getUser);
 
+router.get(
+  '/getFriendSongs',
+  async (req, res) => {
+    console.log("will get friends songs")
+  })
+
 //post a new user
 router.post(
   '/createUser', 
@@ -34,6 +40,7 @@ router.delete("/:id", deleteUser);
 
 //update a user
 router.patch("/:id", updateUser);
+
 
 
 export default router;

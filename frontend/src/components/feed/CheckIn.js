@@ -85,6 +85,21 @@ const songs = [
 function pullInfo(){
     //pull info here
     console.log("blah blah");
+
+
+    //check if user state is true or nah
+
+    //user state auth token wll be added, but local
+
+    //pull user most recently listened to song
+
+    //update the user state object with that data
+
+    //push data to the database
+
+    //if success update the var for user checked in
+
+    //navigate to 
 }
 
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Component from "react";
 import axios from "axios";
 import "./Feed.css";
@@ -120,13 +120,44 @@ function changeStatus(){
 }
 
 function Feed(props) {
+  const [user, setUser] = useState({
+    name: props.name,
+    username: props.username,
+    password: props.password,
+    number: props.number,
+    friendsList: props.friendsList,
+    pendingFriendsList: props.pendingFriendsList,
+    checkedIn: props.checkedIn,
+    spotifyEmail: props.spotifyEmail,
+    profilePicture: props.profilePicture,
+    authToken: props.authToken,
+    song: {
+      title: props.song.title,
+      artist: props.song.artist,
+      songImage: props.song.songImage,
+      songLink: props.song.songLink
+    }
+  });
+
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    const fetchSongs = async () => {
+      
+    }
+
+
+  }, []);
+
   let navigate = useNavigate();
   const searchRoute = () => {
   let path = "../search";
   navigate(path);
   };
 
-  if(self.checkedIn){
+
+
+  if(user.checkedIn){
     return (
       <div class="App">
         {/* <Navbar /> */}
@@ -177,7 +208,7 @@ function Feed(props) {
         <span class="dot4"></span>
   
         <div class="selfSong">
-          <CheckIn></CheckIn>
+          <CheckIn ></CheckIn>
         </div>
   
         <hr></hr>
