@@ -32,6 +32,10 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    spotifyEmail: {
+      type: String,
+      required: false,
+    },
     profilePicture: {
       //receive picture from spotify profile api
       type: String,

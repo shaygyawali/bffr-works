@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 export const getUsers = async () => {
   try{
     const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
-    res.status(200).json(users);
+    return users
   }
   catch(error){
     console.log(error)
@@ -36,7 +36,7 @@ export const getUser = async (req, res) => {
 };
 
 //create a new user
-export const createUser = async (req, res) => {
+export const createUser = async (req,res) => {
   console.log(req.body);
 
   const user =
@@ -49,9 +49,25 @@ export const createUser = async (req, res) => {
     checkedIn: false 
   } 
 
+  let allUsers = await getUsers()
+  console.log('allUsers: ' +  allUsers)
+
+  for(const key in allUsers){
+    if(allUsers[key].number == user.number || allUsers[key].username == user.username){
+      return res.json({stat: false})
+    }
+  }
+
+  
+
   const userFinal = await User.create(user);
   console.log("finalUser " + userFinal)
-  return userFinal
+  if(userFinal == undefined){
+    return res.json({stat: false})
+  }
+  else {
+    return res.json({stat: true})
+  }
   //add doc to db
   /*try {
     const userFinal = await User.create(user);

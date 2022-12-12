@@ -21,14 +21,12 @@ router.post(
   '/createUser', 
   async (req, res) => {
     console.log(req.body)
-    try{
-      let userFinal = await createUser(req, res)
-      res.status(200).send(userFinal);
-    }
-    catch(err){
-      console.log("Error: " + err)
-      res.status(400).json({error: err.message});
-    }
+
+    let success = await createUser(req,res)
+    console.log(success)
+
+    return res.json({stat: res.data.stat})
+
 });
 
 //delete a user
