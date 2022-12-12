@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema as _Schema, model } from "mongoose";
 
-const Schema = mongoose.Schema;
+const Schema = _Schema;
 
 const userSchema = new Schema(
   {
@@ -32,6 +32,10 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    spotifyEmail: {
+      type: String,
+      required: false,
+    },
     profilePicture: {
       //receive picture from spotify profile api
       type: String,
@@ -41,23 +45,23 @@ const userSchema = new Schema(
       //receive song information from spotify api
       title: {
         type: String,
-        required: true,
+        required: false,
       },
       artist: {
         type: String,
-        required: true,
+        required: false,
       },
       songImage: {
         type: String,
-        required: true,
+        required: false,
       },
       songLink: {
         type: String,
-        required: true,
+        required: false,
       },
       pmos: {
         type: Number,
-        required: true,
+        required: false,
       },
       required: false,
     },
@@ -65,4 +69,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
+export default model("User", userSchema);

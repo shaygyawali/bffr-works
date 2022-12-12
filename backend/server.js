@@ -1,48 +1,26 @@
-require("dotenv").config();
-const cors = require("cors");
+import express from "express";
 
-const express = require("express");
+import bodyParser from "body-parser";
 
-var bodyParser = require("body-parser");
+import dotenv from 'dotenv'
 
-//express app
-const app = express();
-const mongoose = require("mongoose");
-const usersRoutes = require("./routes/users");
+import server from './app.js'
+import connectDB from './db/conn.js'
+
+const port = 3001
+
+const listener = server.listen(port, () => {
+  console.log(`server running on: ${port}`)
+})
+const close = () => {
+  listener.close()
+}
+
+connectDB();
 
 // create application/json parser
 var jsonParser = bodyParser.json();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-//middleware
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-});
 
-app.use(
-  cors({
-    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-  })
-);
-
-//routes
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the App!" });
-});
-
-app.use("/api/users", urlencodedParser, usersRoutes);
-
-//connect to db
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    //listen for requests
-    app.listen(process.env.PORT, () => {
-      console.log("listening on port 4000!");
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });

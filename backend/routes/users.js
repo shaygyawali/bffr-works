@@ -1,11 +1,12 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createUser,
   getUsers,
   getUser,
   deleteUser,
   updateUser,
-} = require("../controllers/userController");
+} from "../controllers/userController.js";
+
 
 const router = express.Router();
 
@@ -16,7 +17,17 @@ router.get("/", getUsers);
 router.get("/:id", getUser);
 
 //post a new user
-router.post("/", createUser);
+router.post(
+  '/createUser', 
+  async (req, res) => {
+    console.log(req.body)
+
+    let success = await createUser(req,res)
+    console.log(success)
+
+    return res.json({stat: res.data.stat})
+
+});
 
 //delete a user
 router.delete("/:id", deleteUser);
@@ -24,4 +35,5 @@ router.delete("/:id", deleteUser);
 //update a user
 router.patch("/:id", updateUser);
 
-module.exports = router;
+
+export default router;
