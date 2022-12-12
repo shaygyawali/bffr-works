@@ -19,11 +19,17 @@ router.get("/:id", getUser);
 //post a new user
 router.post(
   '/createUser', 
-  async (res, req) => {
-    const username = req.params.userName
-    console.log(username)
-    return res.json(res)
-  });
+  async (req, res) => {
+    console.log(req.body)
+    try{
+      let userFinal = await createUser(req, res)
+      res.status(200).send(userFinal);
+    }
+    catch(err){
+      console.log("Error: " + err)
+      res.status(400).json({error: err.message});
+    }
+});
 
 //delete a user
 router.delete("/:id", deleteUser);
@@ -31,8 +37,5 @@ router.delete("/:id", deleteUser);
 //update a user
 router.patch("/:id", updateUser);
 
-// module.exports = router;
-// export default router;
 
-module.exports = {default: router};
-// export { userRoutes as userRoutes };
+export default router;

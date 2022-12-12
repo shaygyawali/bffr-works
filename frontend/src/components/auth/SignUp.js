@@ -50,7 +50,7 @@ function SignUp() {
   function updatePwd(evt){
     setUserPwd(evt.target.value);
     setStatusMessage3("none");
-    console.log("THIS IS PWD:   "+userPwd);
+    console.log("THIS IS PWD:   " + userPwd);
   }
 
   function updateID(evt){
@@ -74,12 +74,12 @@ function SignUp() {
     };
     try{
       await axios
-        .post(`/createUser`, user)
+        .post(`http://localhost:3001/user/createUser`, user)
         .catch(function(res){
           console.log("check response after creating user: ", res);
         })
-        .then(function() {
-          console.log("checking execution ==> ");
+        .then(function(res) {
+          console.log("checking execution ==> " + res.body);
         })
     }catch (err) {
       alert(err);

@@ -6,10 +6,14 @@ import mongoose from "mongoose";
 
 //get all users
 
-export const getUsers = async (req, res) => {
-  const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
-
-  res.status(200).json(users);
+export const getUsers = async () => {
+  try{
+    const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
+    res.status(200).json(users);
+  }
+  catch(error){
+    console.log(error)
+  }
 };
 
 //get a single user
@@ -35,23 +39,28 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
   console.log(req.body);
 
-  const { name, username, password, number, friendsList, checkedIn } = req.body;
+  const user =
+  { name: req.body.name, 
+    username: req.body.username, 
+    password: req.body.password, 
+    number: req.body.number, 
+    friendsList: [], 
+    pendingFriendsList: [], 
+    checkedIn: false 
+  } 
 
+  const userFinal = await User.create(user);
+  console.log("finalUser " + userFinal)
+  return userFinal
   //add doc to db
-  try {
-    const user = await User.create({
-      name,
-      username,
-      password,
-      number,
-      friendsList,
-      checkedIn,
-      profilePicture,
-    });
-    res.status(200).json(user);
+  /*try {
+    const userFinal = await User.create(user);
+    console.log(userFinal instanceof User)
+    return res.status(200).send(true);
   } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+    console.log("error when creating user " + error);
+    return res.status(400).send(false);
+  }*/
 };
 
 //delete a user

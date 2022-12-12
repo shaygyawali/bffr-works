@@ -41,23 +41,23 @@ const userSchema = new Schema(
       //receive song information from spotify api
       title: {
         type: String,
-        required: true,
+        required: false,
       },
       artist: {
         type: String,
-        required: true,
+        required: false,
       },
       songImage: {
         type: String,
-        required: true,
+        required: false,
       },
       songLink: {
         type: String,
-        required: true,
+        required: false,
       },
       pmos: {
         type: Number,
-        required: true,
+        required: false,
       },
       required: false,
     },

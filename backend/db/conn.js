@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-console.log(typeof process.env.ATLAS_URI);
+console.log(process.env.ATLAS_URI);
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.ATLAS_URI, {
