@@ -88,7 +88,6 @@ function pullInfo(){
 }
 
 
-
 function CheckIn(props) {
     return (
       <div class="checkIn">

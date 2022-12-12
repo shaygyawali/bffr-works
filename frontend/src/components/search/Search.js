@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import SearchInput from './SearchInput'
 const Search = () => {
+    console.log("HI")
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredName, setFilteredName] = useState("");
 
@@ -171,24 +173,10 @@ const Search = () => {
         })
       }
 
-      function Search({handleSearch}){
-        function onChange(e){
-            handleSearch(e.target.value)
-        }
-
-        return (
-            <div>
-                <label>Search</label>
-                <input> type-"text" onChange={onChange}
-                </input>
-            </div>
-        )
-      }
-
 
   return (
     <div className = "App">
-        <Search handleSearch = {handleSearch}/>
+        <SearchInput handleSearch = {handleSearch}/>
         <h2> Filtered Name:
             <ul>
                 {filteredName}

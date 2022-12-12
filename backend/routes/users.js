@@ -18,6 +18,7 @@ router.get("/:id", getUser);
 //post a new user
 router.post("/", createUser);
 
+
 //delete a user
 router.delete("/:id", deleteUser);
 
