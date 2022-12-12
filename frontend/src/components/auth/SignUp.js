@@ -79,12 +79,15 @@ function SignUp() {
           console.log("check response after creating user: ", res);
         })
         .then(function(res) {
-          console.log("checking execution ==> " + res.body);
+          console.log(res.data.stat)
+          if(res.data.stat == true){
+            console.log("CAN CREATE USER")
+          } else {console.log("nah")}
+          console.log("checking execution ==> " + res.status);
         })
     }catch (err) {
       alert(err);
     }
-    
   }
 
 
