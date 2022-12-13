@@ -196,18 +196,36 @@ function Feed(props) {
           console.log("mommy 3 spotify pull")
 
 
-          const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+          const response = await 
+          axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
             params: {
                 'market': 'US'
             },
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQBzLflcFMM0GqqmV5dvSXfcvIRCRllaYvAtnDHjvvoVmN5aCZW7AG0NF906RSEY7e_VgQn_CZ_8WTHy5E40wfjJqbA3Vut8PlrmaDGWx4L3iqB575zqHf8pR_LTjnjWWw38v2f' 
+                'Authorization': 'Bearer BQCw15gujMyhB-pLiVQVHqXWGo2ptohzZBqBCUEDg2GU96mOqTLtZsfMSbR0Ttx5N9ZPB6tOJlnekYX7WhlqW4UlygBHHORRHUeZLJhAkNUs6aEw0vrcFPuIsoRBVXXQJzRFyx4BWRp4Rih-WUMXaDABi-tFw9PKNCoOCgRQQ0kMHANizzxkSySuP6QXZ8hfYg' 
             }
           });
 
+          //+ localStorage.token
+          
+
+          //THIS IS THE WORKING OBJECT WITH THE SONG IN IT AHHHHHHH
           console.log("response: ", response)
+
+          console.log("just the item: ", response.data.item)
+
+          console.log("song name: ", response.data.item.name)
+
+          console.log("artist name: ", response.data.item.artists[0].name)
+
+          console.log("album artwork: ",response.data.item.album.images[0].url)
+
+          console.log("link to the song: ", response.data.item.external_urls.spotify)
+
+
+
     }
 
     spotifyPull()
