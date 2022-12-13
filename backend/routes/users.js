@@ -31,10 +31,11 @@ router.post(
   // return res.json({stat: res.data.stat})
 });
 
-router.get(
+router.post(
   '/getFriendSongs',
   async (req, res) => {
     console.log("will get friends songs")
+    let a = await friendSongs(req, res)
   })
 
 //post a new user

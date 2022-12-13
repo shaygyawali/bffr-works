@@ -87,8 +87,8 @@ function SignUp() {
           console.log("checking execution ==> " + res.status);
         })
         //ONCE SUCCESSFUL, CALL ROUTECHANGE
-        let path = "/spotifyAuth";
-        navigate(path);
+        let path = "/feed";
+        navigate(path, );
     }catch (err) {
       alert(err);
     }

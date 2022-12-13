@@ -6,7 +6,7 @@ import Song from "./Song";
 import SelfSong from "./SelfSong";
 import search from "./search.png";
 import CheckIn from './CheckIn'
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const self = {
@@ -119,27 +119,83 @@ function changeStatus(){
   
 }
 
-function Feed(props) {
+function Feed() {
   const [token, setToken] = useState("");
+  const [checkedInn, setCheckedInn] = useState(false)
+  const {state} = useLocation();
+  try{
+    const {username, friendsList, checkedIn, song, number} =  state
+    window.localStorage.setItem('username', username);
+    window.localStorage.setItem('friendsList', friendsList)
+    window.localStorage.setItem('checkedIn', checkedIn);
+    window.localStorage.setItem('song', JSON.stringify(song))
+    window.localStorage.setItem('number', number);
+    console.log("DATA: " + number + username + friendsList + checkedIn + song.title)
+  } catch(err){
+    console.log("not exist")
+  }
+
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect( () => {
-    //this is the URL
+      const getFriendsSongs = async () => {
+        let num = window.localStorage.getItem('number')
+        let friendsList = window.localStorage.getItem('friendsList')
+        const userInfo = {
+          number: num,
+          friends: friendsList
+        };
+        try {
+          await axios
+          .post(`http://localhost:3001/user/getFriendSongs`, userInfo)
+          .catch(function(res){
+            console.log("idk" + res)
+          })
+          .then(function(res){
+            console.log(res)
+          });
+        } catch (err){
+          alert(err)
+        }
+      }
+
+
+      if(window.localStorage.getItem('checkedIn') == "false"){
+        console.log("checkin")
+        setCheckedInn(false)
+      } else { 
+        console.log("hmmm")
+        setCheckedInn(true) 
+        console.log(checkedInn)
+      }
+
+      //this is the URL
       const hash = window.location.href;
       //this is the storage
       let storageVal = window.localStorage;
       console.log("THIS IS OUR TOKEN ------>  ",storageVal)
       console.log("And this is the hash ", hash)
 
-
       window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
       setToken(token)
+
+      if(window.localStorage.getItem('token') != "undefined"){
+        window.localStorage.setItem("checkedIn", "true")
+        setCheckedInn(true)
+      }
+
+      console.log("checked INNN" + checkedInn)
+
+      if(checkedInn){
+        console.log("getting frined song")
+        getFriendsSongs()
+      }
       
-      
+
   }, []);
 
 
-  if(self.checkedIn){
+  if(checkedInn){
     return (
       <div class="App">
         {/* <Navbar /> */}
@@ -190,7 +246,7 @@ function Feed(props) {
         <hr></hr>
 
 
-        <div class="songs">
+        <div class="songsHide">
           {songs.map((s, i) => (
             <SongHold {...s} key={i}></SongHold>
           ))}

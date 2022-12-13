@@ -13,6 +13,13 @@ function LogIn() {
   const [profileData, setProfileData] = useState(null);
   const [userNumber, setUserNumber] = useState("");
   const [userPwd, setUserPwd] = useState("");
+  const [userName, setUserName] = useState("");
+  const [friendsList, setFriendsList] = useState([])
+  const [checkedIn, setCheckedIn] = useState(false)
+  const [song, setSong] = useState({
+    
+  })
+
   const [statusMessage, setStatusMessage] = useState("none");
 
   //SPOTIFY AUTH URL PARSING
@@ -56,15 +63,19 @@ function LogIn() {
           if(res.data.stat == false){
              console.log("USER NOT FOUND!!")
             setStatusMessage("USER NOT FOUND BITCH")
-
-
           } else if(res.data){
-              console.log(res.data)
-              navigate("/feed", {state:{
-                username:res.data.username,
-                friendsList:res.data.friendsList,
-                checkedIn: res.data.checkedIn,
-                song: res.data.song
+              console.log(res.data.data)
+              navigate("/feed", {state: {
+                  username: res.data.data.username,
+                  friendsList: res.data.data.friendsList,
+                  checkedIn: res.data.data.checkedIn,
+                  song: {
+                    title: res.data.data.song.title,
+                    artist: res.data.data.song.title,
+                    songImage: res.data.data.song.title,
+                    songLink: res.data.data.song.title
+                  },
+                  number: res.data.data.number
                 }
               });
 

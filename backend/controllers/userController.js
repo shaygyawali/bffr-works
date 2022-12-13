@@ -28,12 +28,21 @@ export const login = async (req, res) => {
     username: singleUser.username,
     friendsList: singleUser.friendsList,
     checkedIn: singleUser.checkedIn,
-    song:singleUser.song,
+    song: singleUser.song,
     number: singleUser.number
     }});
   }  
 };
+ 
+export const friendSongs = async (req,res) => {
+  const userInfo = {
+    number: req.body.number,
+    friends: req.body.friendsList
+  }
 
+  let singleUser = await User.findOne({'number': userInfo.number})
+  console.log("FRIEND LIST: " + singleUser.friendsList)
+}
 
 //create a new user
 export const createUser = async (req,res) => {
