@@ -39,6 +39,7 @@ router.post(
     return res.json({stat: res.data.stat})
 });
 
+
 //delete a user
 router.delete("/:id", deleteUser);
 
