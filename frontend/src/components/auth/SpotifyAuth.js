@@ -14,7 +14,7 @@ function SpotifyAuth() {
   const REDIRECT_URI = "http://localhost:3000/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
-  const scope = 'app-remote-control user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private user-read-recently-played playlist-modify-public user-top-read streaming user-library-read';
+  const scope = 'user-read-currently-playing'
   const state = "";
   var url = AUTH_ENDPOINT;
   url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);
@@ -28,18 +28,15 @@ function SpotifyAuth() {
 
   //taking token from the url and saving it locally
   useEffect( () => {
-      const hash = window.location.hash;
-      let token = window.localStorage.getItem("token");
-      console.log("THIS IS OUR TOKEN ------>  ",token)
+    const hash = window.location.href;
+    //this is the storage
+    let storageVal = window.localStorage;
+    console.log("THIS IS OUR TOKEN ------>  ",storageVal)
+    console.log("And this is the hash ", hash)
 
 
-      if(!token && hash){
-        token = hash.substring(2).split("&").find(e => e.startsWith("access_token")).split("=")[1]
-
-        window.location.hash = ""
-        window.localStorage.setItem("token",token)
-        setToken(token)
-      }
+    window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
+    setToken(token)
   },[]);
 
     //end of new line 

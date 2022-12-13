@@ -19,8 +19,8 @@ function LogIn() {
   const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
   const REDIRECT_URI = "http://localhost:3000/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
-  const scope = 'app-remote-control user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private user-read-recently-played playlist-modify-public user-top-read streaming user-library-read';
+  const RESPONSE_TYPE = "code";
+  const scope = 'user-read-currently-playing';
   const state = "";
   var url = AUTH_ENDPOINT;
   url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);

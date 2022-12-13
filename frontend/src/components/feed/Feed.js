@@ -121,6 +121,20 @@ function changeStatus(){
 
 function Feed(props) {
   const [token, setToken] = useState("");
+  const [accessToken, setaToken] = useState("");
+
+    //SPOTIFY AUTH URL PARSING
+    const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
+    const REDIRECT_URI = "http://localhost:3000/feed";
+    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+    const RESPONSE_TYPE = "code";
+    const scope = 'user-read-currently-playing';
+    const state = "";
+    var url = AUTH_ENDPOINT;
+    url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);
+    url += '&client_id=' + encodeURIComponent(CLIENT_ID);
+    url += '&scope=' + encodeURIComponent(scope);
+    url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URI);
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect( () => {
@@ -134,9 +148,82 @@ function Feed(props) {
 
       window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
       setToken(token)
+      console.log("before spotify pull")
+    
+    
+   
+    const spotifyPull = async() => {
+      console.log("inside spotify pull")
+      const client_id = '84fb2e6474644740868e43ea3da113a2'
+      const client_secret = 'af17e40b326342cca3dbf1b6810cde9d'
+      const serialize = function(obj) {
+        var str = [];
+        for (var p in obj) {
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        }
+        return str.join("&");
+    }
+
+    
+
+    
+
+      axios
+          .post('https://accounts.spotify.com/api/token',
+              serialize({
+                  grant_type: 'client_credentials'
+              }), {
+              headers: {
+                  'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+              }
+          })
+          .then(function(res) {
+            //  console.log(res)
+            if(res.data.stat == false){
+               console.log("USER NOT FOUND!!")
+  
+  
+            } else if(res.data){
+              console.log("we did it joe")
+                console.log(res.data.access_token)
+                setaToken(res.data.access_token);
+
+  
+              }
+          })
+          console.log("mommy 3 spotify pull")
+
+
+          const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+            params: {
+                'market': 'US'
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer BQBzLflcFMM0GqqmV5dvSXfcvIRCRllaYvAtnDHjvvoVmN5aCZW7AG0NF906RSEY7e_VgQn_CZ_8WTHy5E40wfjJqbA3Vut8PlrmaDGWx4L3iqB575zqHf8pR_LTjnjWWw38v2f' 
+            }
+          });
+
+          console.log("response: ", response)
+    }
+
+    spotifyPull()
+
+    console.log("mom", localStorage.token)
+
+    
       
       
   }, []);
+
+  
+
+    
+    
+    
 
 
   if(self.checkedIn){
@@ -155,6 +242,7 @@ function Feed(props) {
         <span class="dot4"></span>
   
         <div class="selfSong">
+        <a href={url} >Login to Spotify</a>
           <SelfSongHold />
         </div>
   
