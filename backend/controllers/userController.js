@@ -7,6 +7,7 @@ export const getUsers = async () => {
     const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
     return users
   }
+  // catch login errors
   catch(error){
     console.log(error)
   }
