@@ -1,4 +1,6 @@
 import express from "express";
+
+// create user
 import {
   createUser,
   getUsers,
