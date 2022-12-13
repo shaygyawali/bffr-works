@@ -126,7 +126,7 @@ function SignUp() {
       </div>
 
       <div class="logoHolder">
-        <h1 class="title"> BFFR </h1>
+        <h2 class="title"> BFFR </h2>
         <h2 class="subtitle"> Friends' Music Now </h2>
       </div>
 

@@ -118,16 +118,10 @@ function CheckIn(props) {
     return (
       <div class="checkIn">
         <a href={url}>
-          <div>
+          <div class = "btn">
             <h1> BFFR RN </h1>
           </div>
           </a>
-            <input
-              class="submitButton"
-              type="button"
-              onclick={url}
-              value="BFFR RN"
-            />
             <h3 class = "checkInNote"> Check in now to see your friends' music </h3>
       </div>
     );
