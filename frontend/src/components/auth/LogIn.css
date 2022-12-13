@@ -116,7 +116,7 @@ body{
   .loginContainer{
     position: relative;
     width: 40%;
-    height: 35%;
+    height: 40%;
 
     display: flex;
     flex-direction: column;
@@ -236,11 +236,16 @@ body{
     color: white;
     font-family: 'inter';
     font-weight: 600;
+    text-decoration: "none"
   }
 
   a:visited{
     color: white;
   }
+  a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+   }
 
   .statusMessage{
     margin: auto;

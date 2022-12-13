@@ -81,7 +81,6 @@ function LogIn() {
 
             }
         })
-        //ONCE SUCCESSFUL, CALL ROUTECHANGE
     }catch (err) {
       alert(err);
     }
@@ -92,10 +91,7 @@ function LogIn() {
     console.log(userNumber);
     if (userNumber.length > 12 || userNumber.length < 12) {
       setStatusMessage("Phone number not valid");
-    } else {
-      let path = "/feed";
-      navigate(path, { state: { token: currentToken, user: user } });
-    }
+    } 
   };
 */}
 
@@ -137,13 +133,14 @@ function LogIn() {
         <div class="loginContainer">
 
         <form >
+        {/* <a href={url} >Login to Spotify</a> */}
             <h2 class = "numberTxt"> Phone Number </h2>
 
             <input class = "phoneInput" type="tel" name="name" placeholder="000-000-0000"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" onChange={evt => updateNumber(evt)}/>
             
             <h2 class = "numberTxt"> Password </h2>
-            <input class = "phoneInput" type="password" name="Password" onChange={evt => updatePwd(evt)}/>
+            <input class = "phoneInput" type="password" name="Password" placeholder="Password" onChange={evt => updatePwd(evt)}/>
             { (statusMessage != "none") === true ? (<p class = "statusMessage"> {statusMessage} </p>) : null }
 
             <button class = "submitButton" type="submit" onClick={loginUser} value="Log In -->" > Log In --> </button>
