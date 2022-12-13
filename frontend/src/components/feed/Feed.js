@@ -5,6 +5,7 @@ import "./Feed.css";
 import Song from "./Song";
 import SelfSong from "./SelfSong";
 import search from "./search.png";
+import CheckIn from './CheckIn'
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 
@@ -12,7 +13,7 @@ const self = {
   userName: "shaylmao",
   profilePic:
     "https://static1.personality-database.com/profile_images/75b307a6bb904bf68ad869a7611b4666.png",
-  checkedIn: true,
+  checkedIn: false,
   song: "Break You Off",
   artist: "Sonder",
   songImage:
@@ -114,54 +115,100 @@ const SelfSongHold = () => (
   />
 );
 
+function changeStatus(){
+  
+}
+
 function Feed(props) {
   const [token, setToken] = useState("");
 
-      // Similar to componentDidMount and componentDidUpdate:
-    useEffect( () => {
-        const hash = window.location.hash;
-        let token = window.localStorage.getItem("token");
-        console.log("THIS IS OUR TOKEN ------>  ",token)
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect( () => {
+    //this is the URL
+      const hash = window.location.href;
+      //this is the storage
+      let storageVal = window.localStorage;
+      console.log("THIS IS OUR TOKEN ------>  ",storageVal)
+      console.log("And this is the hash ", hash)
+
+
+      
+      // token = hash.split("&").substring(2).find(e => e.startsWith("access_token")).split("=")[1]
+
+
+
+
+      // storageVal.token = hash.split("&")[0].split("=")[1]
+      // console.log("this is it so far" ,  storageVal.token)
+      // window.location.hash = ""
+      window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
+      setToken(token)
+      
+      
+  }, []);
+
+
+  if(self.checkedIn){
+    return (
+      <div class="App">
+        {/* <Navbar /> */}
+        <div class="header">
+          <img class="search" src={search} />
+          <p class="headerTitle"> BFFR </p>
+          <img class="profilePicture" src={self.profilePic} />
+        </div>
   
+        <span class="dot"></span>
+        <span class="dot2"></span>
+        <span class="dot3"></span>
+        <span class="dot4"></span>
   
-        if(!token && hash){
-          token = hash.substring(2).split("&").find(e => e.startsWith("access_token")).split("=")[1]
+        <div class="selfSong">
+          <SelfSongHold />
+        </div>
   
-          window.location.hash = ""
-          window.localStorage.setItem("token",token)
-          setToken(token)
-          console.log(token)
-        }
-    });
-
-
-  return (
-    <div class="App">
-      {/* <Navbar /> */}
-      <div class="header">
-        <img class="search" src={search} />
-        <p class="headerTitle"> BFFR </p>
-        <img class="profilePicture" src={self.profilePic} />
+        <hr></hr>
+  
+        <div class="songs">
+          {songs.map((s, i) => (
+            <SongHold {...s} key={i} />
+          ))}
+        </div>
       </div>
+    );
+  }
+  else {
+    return (
+        <div class="App">
+        {/* <Navbar /> */}
+        <div class="header">
+          <img class="search" src={search} />
+          <p class="headerTitle"> BFFR </p>
+          <img class="profilePicture" src={self.profilePic} />
+        </div>
+  
+        <span class="dot"></span>
+        <span class="dot2"></span>
+        <span class="dot3"></span>
+        <span class="dot4"></span>
+  
+        <div class="selfSong">
+          <CheckIn></CheckIn>
+        </div>
+  
+        <hr></hr>
 
-      <span class="dot"></span>
-      <span class="dot2"></span>
-      <span class="dot3"></span>
-      <span class="dot4"></span>
 
-      <div class="selfSong">
-        <SelfSongHold />
+        <div class="songs">
+          {songs.map((s, i) => (
+            <SongHold {...s} key={i}></SongHold>
+          ))}
+        </div>
+
       </div>
+    );
+  }
 
-      <hr></hr>
-
-      <div class="songs">
-        {songs.map((s, i) => (
-          <SongHold {...s} key={i} />
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export default Feed;
