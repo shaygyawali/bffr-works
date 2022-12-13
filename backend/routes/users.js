@@ -5,7 +5,8 @@ import {
   // getUser,
   deleteUser,
   updateUser,
-  login
+  login,
+  friendSongs
 } from "../controllers/userController.js";
 
 

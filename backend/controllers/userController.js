@@ -39,9 +39,21 @@ export const friendSongs = async (req,res) => {
     number: req.body.number,
     friends: req.body.friendsList
   }
+  
+  const friendsSongs = []
 
   let singleUser = await User.findOne({'number': userInfo.number})
-  console.log("FRIEND LIST: " + singleUser.friendsList)
+  console.log("FRIEND LIST: " + Object.keys(singleUser.friendsList).length)
+  let friendsCount = Object.keys(singleUser.friendsList).length
+  for(let i = 0; i <friendsCount; i++){
+    let friendID = singleUser.friendsList[i]
+    let friend = await User.findOne({'id': friendID})
+    if(friend.checkedIn == true){
+      console.log(friend)
+      friendsSongs.add(friend.song)
+    }
+
+  }
 }
 
 //create a new user

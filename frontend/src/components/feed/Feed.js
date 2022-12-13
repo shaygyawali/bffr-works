@@ -159,15 +159,83 @@ function Feed() {
         }
       }
 
+      const spotifyPull = async() => {
+        console.log("inside spotify pull")
+        const client_id = '84fb2e6474644740868e43ea3da113a2'
+        const client_secret = 'af17e40b326342cca3dbf1b6810cde9d'
+        const serialize = function(obj) {
+          var str = [];
+          for (var p in obj) {
+              if (obj.hasOwnProperty(p)) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+              }
+          }
+          return str.join("&");
+      }
 
-      if(window.localStorage.getItem('checkedIn') == "false"){
+        axios
+            .post('https://accounts.spotify.com/api/token',
+                serialize({
+                    grant_type: 'client_credentials'
+                }), {
+                headers: {
+                    'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+                }
+            })
+            .then(function(res) {
+              //  console.log(res)
+              if(res.data.stat == false){
+                 console.log("USER NOT FOUND!!")
+    
+    
+              } else if(res.data){
+                console.log("we did it joe")
+                  console.log(res.data.access_token)    
+                }
+            })
+            console.log("mommy 3 spotify pull")
+  
+  
+            const response = await 
+            axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+              params: {
+                  'market': 'US'
+              },
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer BQCw15gujMyhB-pLiVQVHqXWGo2ptohzZBqBCUEDg2GU96mOqTLtZsfMSbR0Ttx5N9ZPB6tOJlnekYX7WhlqW4UlygBHHORRHUeZLJhAkNUs6aEw0vrcFPuIsoRBVXXQJzRFyx4BWRp4Rih-WUMXaDABi-tFw9PKNCoOCgRQQ0kMHANizzxkSySuP6QXZ8hfYg' 
+              }
+            });
+  
+            //+ localStorage.token
+            
+  
+            //THIS IS THE WORKING OBJECT WITH THE SONG IN IT AHHHHHHH
+            console.log("response: ", response)
+  
+            console.log("just the item: ", response.data.item)
+  
+            console.log("song name: ", response.data.item.name)
+  
+            console.log("artist name: ", response.data.item.artists[0].name)
+  
+            console.log("album artwork: ",response.data.item.album.images[0].url)
+  
+            console.log("link to the song: ", response.data.item.external_urls.spotify)
+  
+  
+  
+      }
+    
+      /*f(window.localStorage.getItem('checkedIn') == "false"){
         console.log("checkin")
         setCheckedInn(false)
       } else { 
         console.log("hmmm")
         setCheckedInn(true) 
         console.log(checkedInn)
-      }
+      }*/
 
       //this is the URL
       const hash = window.location.href;
@@ -181,21 +249,24 @@ function Feed() {
 
       if(window.localStorage.getItem('token') != "undefined"){
         window.localStorage.setItem("checkedIn", "true")
-        setCheckedInn(true)
+        spotifyPull()
       }
 
       console.log("checked INNN" + checkedInn)
 
-      if(checkedInn){
+      if(window.localStorage.getItem('checkedIn') == "true"){
         console.log("getting frined song")
         getFriendsSongs()
       }
+
+
+
       
 
   }, []);
 
 
-  if(checkedInn){
+  if(window.localStorage.getItem("checkedIn") == "true"){
     return (
       <div class="App">
         {/* <Navbar /> */}
