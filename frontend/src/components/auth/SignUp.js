@@ -58,7 +58,10 @@ function SignUp() {
     setStatusMessage4("none");
     console.log("THIS IS USERID:   "+userID);
   }
-  
+  // const spotify = async (event) => {
+  //   event.preventDefault();
+  //   await axios.get("/spotify")
+  // }
 
 //CREATE USER
   let navigate = useNavigate();
@@ -143,7 +146,18 @@ function SignUp() {
             {(statusMessage2 != "none") === true ? (
               <p class="statusMessage"> {statusMessage2} </p>
             ) : null}
-
+            <h2 class="numberTxt"> Username </h2>
+            <input
+              class="phoneInput"
+              type="text"
+              name="UserID"
+              placeholder="Username"
+              maxlength="50"
+              onChange={(evt) => updateID(evt)}
+            />
+            {(statusMessage2 != "none") === true ? (
+              <p class="statusMessage"> {statusMessage3} </p>
+            ) : null}
             <h2 class="numberTxt"> Phone Number </h2>
 
             <input
@@ -161,9 +175,10 @@ function SignUp() {
 
             <h2 class="numberTxt"> Password </h2>
             <input
-              class="pwdInput"
-              type="text"
+              class="phoneInput"
+              type="password"
               name="Password"
+              placeholder="Password"
               maxlength="50"
               onChange={(evt) => updatePwd(evt)}
             />
@@ -171,17 +186,7 @@ function SignUp() {
               <p class="statusMessage"> {statusMessage3} </p>
             ) : null}
 
-            <h2 class="numberTxt"> Username </h2>
-            <input
-              class="userIDInput"
-              type="text"
-              name="UserID"
-              maxlength="50"
-              onChange={(evt) => updateID(evt)}
-            />
-            {(statusMessage2 != "none") === true ? (
-              <p class="statusMessage"> {statusMessage3} </p>
-            ) : null}
+
 
             
 
@@ -194,6 +199,13 @@ function SignUp() {
               {" "}
               Sign Up{" "}
             </button>
+
+            {/* <button
+              class="submitButton"
+              type="submit"
+              onClick={spotify}
+              value="Log In -->"
+            ></button> */}
           </form>
         </div>
 
