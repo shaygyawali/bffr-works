@@ -56,8 +56,6 @@ function LogIn() {
           if(res.data.stat == false){
              console.log("USER NOT FOUND!!")
             setStatusMessage("USER NOT FOUND BITCH")
-
-
           } else if(res.data){
               console.log(res.data)
               navigate("/feed", {state:{
@@ -70,7 +68,6 @@ function LogIn() {
 
             }
         })
-        //ONCE SUCCESSFUL, CALL ROUTECHANGE
     }catch (err) {
       alert(err);
     }
