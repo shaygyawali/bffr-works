@@ -1,11 +1,7 @@
-// const User = require("../models/userModel");
-// const mongoose = require("mongoose");
-
 import User from "../models/userModel.js";
 import mongoose from "mongoose";
 
 //get all users
-
 export const getUsers = async () => {
   try{
     const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
@@ -16,29 +12,31 @@ export const getUsers = async () => {
   }
 };
 
-//get a single user
-
-export const getUser = async (req, res) => {
-  //function to search for a friend/user
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such user" });
+//login
+export const login = async (req, res) => {
+  //function to search for a user  
+  const loginInfo = 
+  { number: req.body.number,
+    password: req.body.password
   }
-
-  const user = await User.findById(id);
-
-  if (!user) {
-    return res.status(404).json({ error: "No such user" });
-  }
-
-  res.status(200).json(user);
+  let singleUser = await User.findOne({'number': loginInfo.number})
+  if(!singleUser){
+    return res.json({stat: false})
+  }else{
+      //Send these to frontend: username, friendsList, song, checkedin
+    return res.send({data: {
+    username: singleUser.username,
+    friendsList: singleUser.friendsList,
+    checkedIn: singleUser.checkedIn,
+    song:singleUser.song,
+    number: singleUser.number
+    }});
+  }  
 };
+
 
 //create a new user
 export const createUser = async (req,res) => {
-  console.log(req.body);
-
   const user =
   { name: req.body.name, 
     username: req.body.username, 
@@ -50,7 +48,7 @@ export const createUser = async (req,res) => {
   } 
 
   let allUsers = await getUsers()
-  console.log('allUsers: ' +  allUsers)
+  // console.log('allUsers: ' +  allUsers)
 
   for(const key in allUsers){
     if(allUsers[key].number == user.number || allUsers[key].username == user.username){
@@ -58,10 +56,8 @@ export const createUser = async (req,res) => {
     }
   }
 
-  
-
   const userFinal = await User.create(user);
-  console.log("finalUser " + userFinal)
+  // console.log("finalUser " + userFinal)
   if(userFinal == undefined){
     return res.json({stat: false})
   }

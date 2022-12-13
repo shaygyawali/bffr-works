@@ -58,9 +58,10 @@ function SignUp() {
     setStatusMessage4("none");
     console.log("THIS IS USERID:   "+userID);
   }
-  let navigate = useNavigate();
+  
 
 //CREATE USER
+  let navigate = useNavigate();
   const createUser = async (event) => {
     event.preventDefault();
     const user = {
@@ -76,64 +77,24 @@ function SignUp() {
       await axios
         .post(`http://localhost:3001/user/createUser`, user)
         .catch(function(res){
-          console.log("check response after creating user: ", res);
+          // console.log("check response after creating user: ", res);
         })
         .then(function(res) {
-          console.log(res.data.stat)
+          // console.log(res.data.stat)
           if(res.data.stat == true){
-            console.log("CAN CREATE USER")
+            // console.log("CAN CREATE USER")
           } else {console.log("nah")}
           console.log("checking execution ==> " + res.status);
         })
+        //ONCE SUCCESSFUL, CALL ROUTECHANGE
+        let path = "/spotifyAuth";
+        navigate(path);
     }catch (err) {
       alert(err);
     }
   }
 
-
-//ONCE SUCCESSFUL, CALL ROUTECHANGE
-  // const routeChange = async (event) => {
-
-  //   console.log(userNumber);
-  //   if (userNumber.length > 12 || userNumber.length < 12) {
-  //     setStatusMessage("Phone number not valid");
-  //   }
-  //   if (userName.length < 4) {
-  //     setStatusMessage2("Username too short");
-  //   } else {
-  //     console.log(user);
-  //     await axios
-
-  //       .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/`, { user })
-  //       .then((res) => {
-  //         console.log(res);
-  //         console.log(res.data);
-  //       });
-      
-  //   }
-  // };
-
-  function getData() {
-    axios({
-      method: "GET",
-      url: "/",
-    })
-      .then((response) => {
-        const res = response.data;
-        setProfileData({
-          profile_name: res.name,
-          about_me: res.about,
-        });
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
-  }
-  //end of new line
+//end of new line
 
   const inputProps = {
     placeholder: "ReactIntlTelInput",
@@ -221,6 +182,8 @@ function SignUp() {
             {(statusMessage2 != "none") === true ? (
               <p class="statusMessage"> {statusMessage3} </p>
             ) : null}
+
+            
 
             <button
               class="submitButton"

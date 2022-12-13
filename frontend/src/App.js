@@ -11,6 +11,7 @@ import SignUp from "./components/auth/SignUp";
 import PhoneVerification from "./components/auth/PhoneVerification";
 import Profile from "./components/Profile";
 import Feed from "./components/feed/Feed";
+import SpotifyAuth from "./components/auth/SpotifyAuth";
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <Route path="phone-verify" element={<PhoneVerification />} />
         <Route path="profile" element={<Profile />} />
         <Route path="feed" element={<Feed />} />
+        <Route path="spotifyAuth" element={<SpotifyAuth />} />
       </Routes>
     </BrowserRouter>
   );
