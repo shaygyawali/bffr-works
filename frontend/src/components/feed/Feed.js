@@ -106,14 +106,6 @@ const SongHold = ({
   />
 );
 
-const SelfSongHold = () => (
-  <SelfSong
-    song={self.song}
-    artist={self.artist}
-    songImage={self.songImage}
-    songLink={self.songLink}
-  />
-);
 
 function changeStatus(){
   
@@ -223,9 +215,12 @@ function Feed() {
             console.log("album artwork: ",response.data.item.album.images[0].url)
   
             console.log("link to the song: ", response.data.item.external_urls.spotify)
-  
-  
-  
+
+
+            window.localStorage.setItem('selfSong', response.data.item.name)
+            window.localStorage.setItem('selfArtist', response.data.item.artists[0].name)
+            window.localStorage.setItem('selfAlbumArt', response.data.item.album.images[0].url)
+            window.localStorage.setItem('selfLink', response.data.item.external_urls.spotify)  
       }
     
       /*f(window.localStorage.getItem('checkedIn') == "false"){
@@ -256,14 +251,19 @@ function Feed() {
 
       if(window.localStorage.getItem('checkedIn') == "true"){
         console.log("getting frined song")
+      } else {
         getFriendsSongs()
       }
-
-
-
-      
-
   }, []);
+
+  const SelfSongHold = () => (
+    <SelfSong
+      song={window.localStorage.getItem('selfSong')}
+      artist={window.localStorage.getItem('selfArtist')}
+      songImage={window.localStorage.getItem('selfAlbumArt')}
+      songLink={window.localStorage.getItem('selfLink')}
+    />
+  );
 
 
   if(window.localStorage.getItem("checkedIn") == "true"){

@@ -47,10 +47,14 @@ export const friendSongs = async (req,res) => {
   let friendsCount = Object.keys(singleUser.friendsList).length
   for(let i = 0; i <friendsCount; i++){
     let friendID = singleUser.friendsList[i]
+    console.log(friendID)
     let friend = await User.findOne({'id': friendID})
+    console.log(friend)
     if(friend.checkedIn == true){
-      console.log(friend)
+      console.log("found" + friend)
       friendsSongs.add(friend.song)
+    } else {
+      console.log("not checked in")
     }
 
   }
