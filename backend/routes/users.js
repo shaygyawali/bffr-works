@@ -2,10 +2,12 @@ import express from "express";
 import {
   createUser,
   getUsers,
-  getUser,
+  // getUser,
   deleteUser,
   updateUser,
+  login
 } from "../controllers/userController.js";
+
 
 const router = express.Router();
 
@@ -13,10 +15,29 @@ const router = express.Router();
 router.get("/", getUsers);
 
 //get a single user
-router.get("/:id", getUser);
+// router.get(
+//   "/getUser", 
+//   // async (req, res) => {
+//   //   let foundUser = await getUser(req,res)
+//   //   return res.send("is this working??");
+//   // }
+//   );
+
+//login
+router.post(
+  '/login',
+  async (req, res) => {
+  let a = await login(req, res)
+  // return res.json({stat: res.data.stat})
+});
 
 //post a new user
-router.post("/", createUser);
+router.post(
+  '/createUser', 
+  async (req, res) => {
+    let success = await createUser(req,res)
+    return res.json({stat: res.data.stat})
+});
 
 
 //delete a user
@@ -25,8 +46,5 @@ router.delete("/:id", deleteUser);
 //update a user
 router.patch("/:id", updateUser);
 
-// module.exports = router;
-// export default router;
 
-export { router as userRoutes };
-// export { userRoutes as userRoutes };
+export default router;

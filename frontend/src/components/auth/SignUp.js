@@ -2,15 +2,25 @@ import { useState } from "react";
 import Component from "react";
 import axios from "axios";
 import "./SignUp.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useRevalidator } from "react-router-dom";
+import SpotifyAuth from "./SpotifyAuth";
+// import dotenv from "dotenv";
+// dotenv.config();
+
 
 function SignUp() {
   // new line start
   const [profileData, setProfileData] = useState(null);
   const [userNumber, setUserNumber] = useState("");
   const [userName, setUserName] = useState("");
+  const [userPwd, setUserPwd] = useState("");
+  const [userID, setUserID] = useState("");
   const [statusMessage, setStatusMessage] = useState("none");
   const [statusMessage2, setStatusMessage2] = useState("none");
+  const [statusMessage3, setStatusMessage3] = useState("none");
+  const [statusMessage4, setStatusMessage4] = useState("none");
+
+  
 
   let names = [
     "Nicki Minaj",
@@ -28,84 +38,63 @@ function SignUp() {
   function updateNumber(evt) {
     setUserNumber(evt.target.value);
     setStatusMessage("none");
-    console.log(userNumber);
+    console.log("THIS IS NUMBER:   "+userNumber);
   }
 
   function updateName(evt) {
     setUserName(evt.target.value);
     setStatusMessage2("none");
-    console.log(userName);
+    console.log("THIS IS NAME:   "+userName);
   }
 
+  function updatePwd(evt){
+    setUserPwd(evt.target.value);
+    setStatusMessage3("none");
+    console.log("THIS IS PWD:   " + userPwd);
+  }
+
+  function updateID(evt){
+    setUserID(evt.target.value);
+    setStatusMessage4("none");
+    console.log("THIS IS USERID:   "+userID);
+  }
+  
+
+//CREATE USER
   let navigate = useNavigate();
-  // const routeChange = () => {
-  //   console.log(userNumber);
-  //   if (userNumber.length > 12 || userNumber.length < 12) {
-  //     setStatusMessage("Phone number not valid");
-  //   }
-  //   if (userName.length < 4) {
-  //     setStatusMessage2("Username too short");
-  //   } else {
-  //     let path = "../phone-verify";
-  //     navigate(path, { state: { number: "6464622111", name: "shay" } });
-  //   }
-  // };
-  const routeChange = (event) => {
+  const createUser = async (event) => {
     event.preventDefault();
     const user = {
-      // name: userName,
-      // username: userName,
-      // password: userNumber,
-      // number: userNumber,
-      // friendsList: [],
-      // checkedIn: true,
-      name: "medha",
-      username: "medha4",
-      password: "703-270-8086",
-      number: "703-270-8086",
-      friendsList: ["hello", "banana"],
-      checkedIn: true,
+      name: userName,
+      username: userID,
+      password: userPwd,
+      number: userNumber,
+      friendsList: [],
+      pendingFriendsList: [],
+      checkedIn: false
     };
-    console.log(userNumber);
-    if (userNumber.length > 12 || userNumber.length < 12) {
-      setStatusMessage("Phone number not valid");
+    try{
+      await axios
+        .post(`http://localhost:3001/user/createUser`, user)
+        .catch(function(res){
+          // console.log("check response after creating user: ", res);
+        })
+        .then(function(res) {
+          // console.log(res.data.stat)
+          if(res.data.stat == true){
+            // console.log("CAN CREATE USER")
+          } else {console.log("nah")}
+          console.log("checking execution ==> " + res.status);
+        })
+        //ONCE SUCCESSFUL, CALL ROUTECHANGE
+        let path = "/spotifyAuth";
+        navigate(path);
+    }catch (err) {
+      alert(err);
     }
-    if (userName.length < 4) {
-      setStatusMessage2("Username too short");
-    } else {
-      console.log(user);
-      axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/`, { user })
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        });
-      let path = "../phone-verify";
-      navigate(path, { state: { number: "6464622111", name: "shay" } });
-    }
-  };
-
-  function getData() {
-    axios({
-      method: "GET",
-      url: "/",
-    })
-      .then((response) => {
-        const res = response.data;
-        setProfileData({
-          profile_name: res.name,
-          about_me: res.about,
-        });
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
   }
-  //end of new line
+
+//end of new line
 
   const inputProps = {
     placeholder: "ReactIntlTelInput",
@@ -170,10 +159,36 @@ function SignUp() {
               <p class="statusMessage"> {statusMessage} </p>
             ) : null}
 
+            <h2 class="numberTxt"> Password </h2>
+            <input
+              class="pwdInput"
+              type="text"
+              name="Password"
+              maxlength="50"
+              onChange={(evt) => updatePwd(evt)}
+            />
+            {(statusMessage2 != "none") === true ? (
+              <p class="statusMessage"> {statusMessage3} </p>
+            ) : null}
+
+            <h2 class="numberTxt"> Username </h2>
+            <input
+              class="userIDInput"
+              type="text"
+              name="UserID"
+              maxlength="50"
+              onChange={(evt) => updateID(evt)}
+            />
+            {(statusMessage2 != "none") === true ? (
+              <p class="statusMessage"> {statusMessage3} </p>
+            ) : null}
+
+            
+
             <button
               class="submitButton"
               type="submit"
-              onClick={routeChange}
+              onClick={createUser}
               value="Log In -->"
             >
               {" "}
