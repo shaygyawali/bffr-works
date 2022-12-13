@@ -56,7 +56,6 @@ export const friendSongs = async (req,res) => {
     } else {
       console.log("not checked in")
     }
-
   }
 }
 
