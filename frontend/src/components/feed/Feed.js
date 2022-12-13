@@ -243,16 +243,17 @@ function Feed() {
       setToken(token)
 
       if(window.localStorage.getItem('token') != "undefined"){
+        console.log("SETTING ITEM")
         window.localStorage.setItem("checkedIn", "true")
-        spotifyPull()
       }
 
       console.log("checked INNN" + checkedInn)
 
       if(window.localStorage.getItem('checkedIn') == "true"){
         console.log("getting frined song")
-      } else {
         getFriendsSongs()
+      } else {
+        spotifyPull()
       }
   }, []);
 

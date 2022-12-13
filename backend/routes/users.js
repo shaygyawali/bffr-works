@@ -37,6 +37,7 @@ router.post(
   async (req, res) => {
     console.log("will get friends songs")
     let a = await friendSongs(req, res)
+    console.log("data: " + res.data)
   })
 
 //post a new user
