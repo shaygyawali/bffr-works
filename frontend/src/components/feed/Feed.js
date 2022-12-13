@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Component from "react";
 import axios from "axios";
 import "./Feed.css";
 import Song from "./Song";
 import SelfSong from "./SelfSong";
 import search from "./search.png";
-import CheckIn from './CheckIn'
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 
@@ -13,7 +12,7 @@ const self = {
   userName: "shaylmao",
   profilePic:
     "https://static1.personality-database.com/profile_images/75b307a6bb904bf68ad869a7611b4666.png",
-  checkedIn: false,
+  checkedIn: true,
   song: "Break You Off",
   artist: "Sonder",
   songImage:
@@ -115,115 +114,34 @@ const SelfSongHold = () => (
   />
 );
 
-function changeStatus(){
-  console.log("change the status here")
-}
-
 function Feed(props) {
-  const [user, setUser] = useState({
-    name: props.name,
-    username: props.username,
-    password: props.password,
-    number: props.number,
-    friendsList: props.friendsList,
-    pendingFriendsList: props.pendingFriendsList,
-    checkedIn: props.checkedIn,
-    spotifyEmail: props.spotifyEmail,
-    profilePicture: props.profilePicture,
-    authToken: props.authToken,
-    song: {
-      title: props.song.title,
-      artist: props.song.artist,
-      songImage: props.song.songImage,
-      songLink: props.song.songLink
-    }
-  });
-
-  const [songs, setSongs] = useState([]);
-
-  useEffect(() => {
-    const fetchSongs = async () => {
-      
-    }
-
-
-  }, []);
-
-  let navigate = useNavigate();
-  const searchRoute = () => {
-  let path = "../search";
-  navigate(path);
-  };
-
-
-
-  if(user.checkedIn){
-    return (
-      <div class="App">
-        {/* <Navbar /> */}
-        <div class="header">
-        <button
-              class="search"
-              type="submit"
-              onClick={searchRoute}
-        >
-            <img class="search" src={search} />
-          </button>
-          <p class="headerTitle"> BFFR </p>
-          <img class="profilePicture" src={self.profilePic} />
-        </div>
-  
-        <span class="dot"></span>
-        <span class="dot2"></span>
-        <span class="dot3"></span>
-        <span class="dot4"></span>
-  
-        <div class="selfSong">
-          <SelfSongHold />
-        </div>
-  
-        <hr></hr>
-  
-        <div class="songs">
-          {songs.map((s, i) => (
-            <SongHold {...s} key={i} />
-          ))}
-        </div>
+  return (
+    <div class="App">
+      {/* <Navbar /> */}
+      <div class="header">
+        <img class="search" src={search} />
+        <p class="headerTitle"> BFFR </p>
+        <img class="profilePicture" src={self.profilePic} />
       </div>
-    );
-  }
-  else {
-    return (
-        <div class="App">
-        {/* <Navbar /> */}
-        <div class="header">
-          <img class="search" src={search} />
-          <p class="headerTitle"> BFFR </p>
-          <img class="profilePicture" src={self.profilePic} />
-        </div>
-  
-        <span class="dot"></span>
-        <span class="dot2"></span>
-        <span class="dot3"></span>
-        <span class="dot4"></span>
-  
-        <div class="selfSong">
-          <CheckIn ></CheckIn>
-        </div>
-  
-        <hr></hr>
 
+      <span class="dot"></span>
+      <span class="dot2"></span>
+      <span class="dot3"></span>
+      <span class="dot4"></span>
 
-        <div class="songs">
-          {songs.map((s, i) => (
-            <SongHold {...s} key={i}></SongHold>
-          ))}
-        </div>
-
+      <div class="selfSong">
+        <SelfSongHold />
       </div>
-    );
-  }
 
+      <hr></hr>
+
+      <div class="songs">
+        {songs.map((s, i) => (
+          <SongHold {...s} key={i} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Feed;
