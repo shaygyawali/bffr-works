@@ -132,15 +132,6 @@ function Feed(props) {
       console.log("And this is the hash ", hash)
 
 
-      
-      // token = hash.split("&").substring(2).find(e => e.startsWith("access_token")).split("=")[1]
-
-
-
-
-      // storageVal.token = hash.split("&")[0].split("=")[1]
-      // console.log("this is it so far" ,  storageVal.token)
-      // window.location.hash = ""
       window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
       setToken(token)
       
