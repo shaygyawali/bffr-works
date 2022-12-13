@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Component from "react";
 import axios from "axios";
 import "./Feed.css";
@@ -115,6 +115,26 @@ const SelfSongHold = () => (
 );
 
 function Feed(props) {
+  const [token, setToken] = useState("");
+
+      // Similar to componentDidMount and componentDidUpdate:
+    useEffect( () => {
+        const hash = window.location.hash;
+        let token = window.localStorage.getItem("token");
+        console.log("THIS IS OUR TOKEN ------>  ",token)
+  
+  
+        if(!token && hash){
+          token = hash.substring(2).split("&").find(e => e.startsWith("access_token")).split("=")[1]
+  
+          window.location.hash = ""
+          window.localStorage.setItem("token",token)
+          setToken(token)
+          console.log(token)
+        }
+    });
+
+
   return (
     <div class="App">
       {/* <Navbar /> */}
