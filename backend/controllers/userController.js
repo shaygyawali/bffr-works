@@ -3,66 +3,66 @@ import mongoose from "mongoose";
 
 //get all users
 export const getUsers = async () => {
-  try{
+  try {
     const users = await User.find({}).sort({ createdAt: -1 }); //User.find({checkedIn: true}) finds all users that are checked in
-    return users
-  }
-  catch(error){
-    console.log(error)
+    console.log("🫡--------->" + users);
+    return users;
+  } catch (error) {
+    console.log(error);
   }
 };
 
 //login
 export const login = async (req, res) => {
-  //function to search for a user  
-  const loginInfo = 
-  { number: req.body.number,
-    password: req.body.password
+  //function to search for a user
+  const loginInfo = { number: req.body.number, password: req.body.password };
+  let singleUser = await User.findOne({ number: loginInfo.number });
+  if (!singleUser) {
+    return res.json({ stat: false });
+  } else {
+    //Send these to frontend: username, friendsList, song, checkedin
+    return res.send({
+      data: {
+        username: singleUser.username,
+        friendsList: singleUser.friendsList,
+        checkedIn: singleUser.checkedIn,
+        song: singleUser.song,
+        number: singleUser.number,
+      },
+    });
   }
-  let singleUser = await User.findOne({'number': loginInfo.number})
-  if(!singleUser){
-    return res.json({stat: false})
-  }else{
-      //Send these to frontend: username, friendsList, song, checkedin
-    return res.send({data: {
-    username: singleUser.username,
-    friendsList: singleUser.friendsList,
-    checkedIn: singleUser.checkedIn,
-    song:singleUser.song,
-    number: singleUser.number
-    }});
-  }  
 };
 
-
 //create a new user
-export const createUser = async (req,res) => {
-  const user =
-  { name: req.body.name, 
-    username: req.body.username, 
-    password: req.body.password, 
-    number: req.body.number, 
-    friendsList: [], 
-    pendingFriendsList: [], 
-    checkedIn: false 
-  } 
+export const createUser = async (req, res) => {
+  const user = {
+    name: req.body.name,
+    username: req.body.username,
+    password: req.body.password,
+    number: req.body.number,
+    friendsList: [],
+    pendingFriendsList: [],
+    checkedIn: false,
+  };
 
-  let allUsers = await getUsers()
+  let allUsers = await getUsers();
   // console.log('allUsers: ' +  allUsers)
 
-  for(const key in allUsers){
-    if(allUsers[key].number == user.number || allUsers[key].username == user.username){
-      return res.json({stat: false})
+  for (const key in allUsers) {
+    if (
+      allUsers[key].number == user.number ||
+      allUsers[key].username == user.username
+    ) {
+      return res.json({ stat: false });
     }
   }
 
   const userFinal = await User.create(user);
   // console.log("finalUser " + userFinal)
-  if(userFinal == undefined){
-    return res.json({stat: false})
-  }
-  else {
-    return res.json({stat: true})
+  if (userFinal == undefined) {
+    return res.json({ stat: false });
+  } else {
+    return res.json({ stat: true });
   }
   //add doc to db
   /*try {

@@ -5,15 +5,33 @@ import Navbar from "../Navbar";
 import axios from "axios";
 
 const Search = () => {
-  console.log("HI");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredName, setFilteredName] = useState("");
+  const [allCurrentUsers, setAllUsers] = useState("");
+  // this.state = { usersCollection: [] };
 
-  // useEffect(() => {
-  //   const getUsers = async () => {
+  useEffect(() => {
+    console.log("hi");
 
-  //   };
-  // });
+    axios
+      .get(
+        "http://localhost:3001/user/getUsers"
+        // ,{
+        // params: {
+        //   id: this._id,
+        //   username: this.username,
+        // },
+        // }
+      )
+      .then((res) => {
+        console.log("HELLO" + JSON.stringify(res));
+        setAllUsers(res);
+      })
+      .catch(function (error) {
+        console.log("error");
+        console.log(error);
+      });
+  }, []);
 
   const allUsers = [
     {

@@ -5,18 +5,21 @@ import {
   // getUser,
   deleteUser,
   updateUser,
-  login
+  login,
 } from "../controllers/userController.js";
-
 
 const router = express.Router();
 
 //get all users
-router.get("/", getUsers);
+router.get("/getUsers", async (req, res) => {
+  await getUsers(req, res);
+  return res.json();
+  // console.log(res);
+});
 
 //get a single user
 // router.get(
-//   "/getUser", 
+//   "/getUser",
 //   // async (req, res) => {
 //   //   let foundUser = await getUser(req,res)
 //   //   return res.send("is this working??");
@@ -24,27 +27,21 @@ router.get("/", getUsers);
 //   );
 
 //login
-router.post(
-  '/login',
-  async (req, res) => {
-  let a = await login(req, res)
+router.post("/login", async (req, res) => {
+  let a = await login(req, res);
   // return res.json({stat: res.data.stat})
 });
 
 //post a new user
-router.post(
-  '/createUser', 
-  async (req, res) => {
-    let success = await createUser(req,res)
-    return res.json({stat: res.data.stat})
+router.post("/createUser", async (req, res) => {
+  let success = await createUser(req, res);
+  return res.json({ stat: res.data.stat });
 });
-
 
 //delete a user
 router.delete("/:id", deleteUser);
 
 //update a user
 router.patch("/:id", updateUser);
-
 
 export default router;
