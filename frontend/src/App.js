@@ -56,6 +56,7 @@ function App() {
     const onChange = value => console.log(value);
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
+  // path of routes
   return (
     <BrowserRouter>
       <Routes>
