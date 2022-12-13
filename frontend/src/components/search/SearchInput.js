@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import "./Search.css";
 
-const SearchInput = ({handleSearch}) => {
-
-    function onChange(e){
-        handleSearch(e.target.value)
-    }
+const SearchInput = ({ handleSearch }) => {
+  function onChange(e) {
+    handleSearch(e.target.value);
+  }
 
   return (
     <div>
-        <label>Search</label>
-        <input> type-"text" onChange={onChange} </input>
+      <h2 class="subtitle" style={{ marginTop: 200, alignContent: "center" }}>
+        Search for Friends
+      </h2>
+      <input class="searchbar" type="text" onChange={onChange} />
     </div>
   );
 };

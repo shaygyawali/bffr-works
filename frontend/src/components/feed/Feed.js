@@ -5,7 +5,7 @@ import "./Feed.css";
 import Song from "./Song";
 import SelfSong from "./SelfSong";
 import search from "./search.png";
-import CheckIn from './CheckIn'
+import CheckIn from "./CheckIn";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 
@@ -115,44 +115,40 @@ const SelfSongHold = () => (
   />
 );
 
-function changeStatus(){
-  console.log("change the status here")
+function changeStatus() {
+  console.log("change the status here");
 }
 
 function Feed(props) {
   let navigate = useNavigate();
   const searchRoute = () => {
-  let path = "../search";
-  navigate(path);
+    let path = "../search";
+    navigate(path);
   };
 
-  if(self.checkedIn){
+  if (self.checkedIn) {
     return (
       <div class="App">
         {/* <Navbar /> */}
         <div class="header">
-        <button
-              class="search"
-              type="submit"
-              onClick={searchRoute}
-        >
+          <button class="search" type="submit" onClick={searchRoute}>
             <img class="search" src={search} />
           </button>
           <p class="headerTitle"> BFFR </p>
           <img class="profilePicture" src={self.profilePic} />
         </div>
-  
+
         <span class="dot"></span>
         <span class="dot2"></span>
         <span class="dot3"></span>
         <span class="dot4"></span>
-  
+
         <div class="selfSong">
           <SelfSongHold />
         </div>
-  
+
         <hr></hr>
-  
+
         <div class="songs">
           {songs.map((s, i) => (
             <SongHold {...s} key={i} />
@@ -160,39 +156,30 @@ function Feed(props) {
         </div>
       </div>
     );
-  }
-  else {
+  } else {
     return (
-        <div class="App">
-        {/* <Navbar /> */}
-        <div class="header">
-          <img class="search" src={search} />
-          <p class="headerTitle"> BFFR </p>
-          <img class="profilePicture" src={self.profilePic} />
-        </div>
-  
+      <div class="App">
+        <Navbar />
+
         <span class="dot"></span>
         <span class="dot2"></span>
         <span class="dot3"></span>
         <span class="dot4"></span>
-  
+
         <div class="selfSong">
           <CheckIn></CheckIn>
         </div>
-  
-        <hr></hr>
 
+        <hr></hr>
 
         <div class="songs">
           {songs.map((s, i) => (
             <SongHold {...s} key={i}></SongHold>
           ))}
         </div>
-
       </div>
     );
   }
-
 }
-
+export const profilePic = self.profilePic;
 export default Feed;
