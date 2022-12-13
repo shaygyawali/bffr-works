@@ -14,7 +14,7 @@ function SpotifyAuth() {
   const REDIRECT_URI = "http://localhost:3000/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
-  const scope = 'user-read-recently-played user-read-currently-playing';
+  const scope = 'app-remote-control user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private user-read-recently-played playlist-modify-public user-top-read streaming user-library-read';
   const state = "";
   var url = AUTH_ENDPOINT;
   url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);
@@ -26,15 +26,51 @@ function SpotifyAuth() {
   const [token, setToken] = useState("");
   const [path, setPath] = useState("");
 
+  //taking token from the url and saving it locally
+  useEffect( () => {
+      const hash = window.location.hash;
+      let token = window.localStorage.getItem("token");
+      console.log("THIS IS OUR TOKEN ------>  ",token)
+
+
+      if(!token && hash){
+        token = hash.substring(2).split("&").find(e => e.startsWith("access_token")).split("=")[1]
+
+        window.location.hash = ""
+        window.localStorage.setItem("token",token)
+        setToken(token)
+      }
+  },[]);
+
     //end of new line 
 
   return (
-          <form>
 
-             {!token ? <a href={url} >Login to Spotify</a>
-            : <button>Logout</button>}
+    <div class="App">
+    <span class="dot"></span>
+    <span class="dot2"></span>
+    <span class="dot3"></span>
+    <span class="dot4"></span>
 
-          </form>
+    <div class="accentBalls">
+      <span class="dot5"></span>
+      <span class="dot6"></span>
+    </div>
+
+    <div class="logoHolder">
+      <h1 class="title"> BFFR </h1>
+      <h2 class="subtitle"> Friends' Music Now </h2>
+    </div>
+
+    <div class="mainContainer">
+      <div class="loginContainer">
+        <form >
+          <a href={url} >Login to Spotify</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
   )
 }
 
