@@ -259,22 +259,20 @@ function Feed() {
 
   const SelfSongHold = () => (
     <SelfSong
-      song={window.localStorage.getItem('selfSong')}
-      artist={window.localStorage.getItem('selfArtist')}
-      songImage={window.localStorage.getItem('selfAlbumArt')}
-      songLink={window.localStorage.getItem('selfLink')}
+      song="Bad Habit"
+      artist="Steve Lacey"
+      songImage="https://upload.wikimedia.org/wikipedia/en/6/63/Steve_Lacy_-_Bad_Habit.png"
+      songLink="https://open.spotify.com/track/4k6Uh1HXdhtusDW5y8Gbvy?si=0b26b487ded74e38"
     />
   );
 
 
-  if(window.localStorage.getItem("checkedIn") == "true"){
+  if(true){
     return (
       <div class="App">
         {/* <Navbar /> */}
         <div class="header">
-          <img class="search" src={search} />
           <p class="headerTitle"> BFFR </p>
-          <img class="profilePicture" src={self.profilePic} />
         </div>
   
         <span class="dot"></span>
@@ -296,7 +294,7 @@ function Feed() {
       </div>
     );
   }
-  else {
+  else { 
     return (
         <div class="App">
         {/* <Navbar /> */}

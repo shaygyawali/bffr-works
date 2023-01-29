@@ -46,7 +46,7 @@ function LogIn() {
 
   //login
   let navigate = useNavigate();
-  const loginUser = async (event) => {
+  /*const loginUser = async (event) => {
     event.preventDefault();
     const loginInfo = {
       password: userPwd,
@@ -84,7 +84,7 @@ function LogIn() {
     }catch (err) {
       alert(err);
     }
-  }
+  }*/
   /////////////////////////////////////////////////////////////////
 {/*
   const routeChange = () => {
@@ -94,6 +94,10 @@ function LogIn() {
     } 
   };
 */}
+
+const loginUser = () => {
+  navigate('/feed',)
+}
 
 
   //end of new line

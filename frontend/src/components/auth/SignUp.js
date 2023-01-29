@@ -65,7 +65,7 @@ function SignUp() {
 
 //CREATE USER
   let navigate = useNavigate();
-  const createUser = async (event) => {
+  /*const createUser = async (event) => {
     event.preventDefault();
     const user = {
       name: userName,
@@ -95,6 +95,12 @@ function SignUp() {
     }catch (err) {
       alert(err);
     }
+  }*/
+
+  //temp createUser while debugging:
+
+  const createUser = () => {
+    navigate('/feed',)
   }
 
 //end of new line
@@ -133,19 +139,6 @@ function SignUp() {
       <div class="mainContainer">
         <div class="signUpContainer">
           <form>
-            <h2 class="numberTxt"> Name </h2>
-
-            <input
-              class="phoneInput"
-              type="text"
-              name="name"
-              placeholder={phName}
-              maxlength="50"
-              onChange={(evt) => updateName(evt)}
-            />
-            {(statusMessage2 != "none") === true ? (
-              <p class="statusMessage"> {statusMessage2} </p>
-            ) : null}
             <h2 class="numberTxt"> Username </h2>
             <input
               class="phoneInput"
