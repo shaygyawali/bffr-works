@@ -10,6 +10,7 @@ import "intl-tel-input/build/css/intlTelInput.css";
 function SpotifyAuth() {
   /* */
   //Spotify login link constants
+  const SECRET_KEY = "af17e40b326342cca3dbf1b6810cde9d";
   const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
   const REDIRECT_URI = "https://bffr.netlify.app/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -24,10 +25,29 @@ function SpotifyAuth() {
   url += "&redirect_uri=" + encodeURIComponent(REDIRECT_URI);
   // url += '&state=' + encodeURIComponent(state);
 
+  //https://accounts.spotify.com/authorize?response_type=token&client_id=84fb2e6474644740868e43ea3da113a2&scope=user-read-currently-playing&redirect_uri=http://localhost:3000/feed
+
+
+
   const [token, setToken] = useState("");
   const [path, setPath] = useState("");
+  //taking token from the url and saving it locally
+  useEffect( () => {
+      const hash = window.location.hash;
+      let token = window.localStorage.getItem("token");
+      console.log("THIS IS OUR TOKEN ------>  ",token)
 
-  //end of new line
+
+      if(!token && hash){
+        token = hash.substring(2).split("&").find(e => e.startsWith("access_token")).split("=")[1]
+
+        window.location.hash = ""
+        window.localStorage.setItem("token",token)
+        setToken(token)
+      }
+  },[]);
+
+    //end of new line 
 
   return (
     <div class="App">

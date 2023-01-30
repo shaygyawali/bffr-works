@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Component from "react";
 import axios from "axios";
 import "./Feed.css";
 import Song from "./Song";
 import SelfSong from "./SelfSong";
 import search from "./search.png";
-import CheckIn from "./CheckIn";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import CheckIn from './CheckIn'
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const self = {
@@ -106,49 +106,184 @@ const SongHold = ({
   />
 );
 
-const SelfSongHold = () => (
-  <SelfSong
-    song={self.song}
-    artist={self.artist}
-    songImage={self.songImage}
-    songLink={self.songLink}
-  />
-);
 
-function changeStatus() {
-  console.log("change the status here");
+function changeStatus(){  
 }
 
-function Feed(props) {
-  let navigate = useNavigate();
-  const searchRoute = () => {
-    let path = "../search";
-    navigate(path);
-  };
+function Feed() {
+  const [token, setToken] = useState("");
+  const [checkedInn, setCheckedInn] = useState(false)
+  const {state} = useLocation();
+  try{
+    const {username, friendsList, checkedIn, song, number} =  state
+    window.localStorage.setItem('username', username);
+    window.localStorage.setItem('friendsList', friendsList)
+    window.localStorage.setItem('checkedIn', checkedIn);
+    window.localStorage.setItem('song', JSON.stringify(song))
+    window.localStorage.setItem('number', number);
+    console.log("DATA: " + number + username + friendsList + checkedIn + song.title)
+  } catch(err){
+    console.log("not exist")
+  }
 
-  if (self.checkedIn) {
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect( () => {
+      const getFriendsSongs = async () => {
+        let num = window.localStorage.getItem('number')
+        let friendsList = window.localStorage.getItem('friendsList')
+        const userInfo = {
+          number: num,
+          friends: friendsList
+        };
+        try {
+          await axios
+          .post(`http://localhost:3001/user/getFriendSongs`, userInfo)
+          .catch(function(res){
+            console.log("idk" + res)
+          })
+          .then(function(res){
+            console.log(res)
+          });
+        } catch (err){
+          alert(err)
+        }
+      }
+
+      const spotifyPull = async() => {
+        console.log("inside spotify pull")
+        const client_id = '84fb2e6474644740868e43ea3da113a2'
+        const client_secret = 'af17e40b326342cca3dbf1b6810cde9d'
+        const serialize = function(obj) {
+          var str = [];
+          for (var p in obj) {
+              if (obj.hasOwnProperty(p)) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+              }
+          }
+          return str.join("&");
+      }
+
+        axios
+            .post('https://accounts.spotify.com/api/token',
+                serialize({
+                    grant_type: 'client_credentials'
+                }), {
+                headers: {
+                    'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+                }
+            })
+            .then(function(res) {
+              //  console.log(res)
+              if(res.data.stat == false){
+                 console.log("USER NOT FOUND!!")
+    
+    
+              } else if(res.data){
+                console.log("we did it joe")
+                  console.log(res.data.access_token)    
+                }
+            })
+            console.log("mommy 3 spotify pull")
+  
+  
+            const response = await 
+            axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+              params: {
+                  'market': 'US'
+              },
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer BQD9FFs9rBT2AfPth8nX1onMf-mWcbSVRcKxzQ5Q21CCN4A5HNg8N9qdBSk0fwIIWyYEt7wvfm-kt0baZqUaNbYCUZhlfNHSH21tOoZQQ7t_gPdNvh98arGSIDqnYVMwNe8gUmub4ywHVe85tBiDjJyMELKnsyN2IRPx-Y08StTmxug966menVc0gCgs-hD0kuJImg' 
+              }
+            });
+  
+            //+ localStorage.token
+            
+  
+            //THIS IS THE WORKING OBJECT WITH THE SONG IN IT AHHHHHHH
+            console.log("response: ", response)
+  
+            console.log("just the item: ", response.data.item)
+  
+            console.log("song name: ", response.data.item.name)
+  
+            console.log("artist name: ", response.data.item.artists[0].name)
+  
+            console.log("album artwork: ",response.data.item.album.images[0].url)
+  
+            console.log("link to the song: ", response.data.item.external_urls.spotify)
+
+
+            window.localStorage.setItem('selfSong', response.data.item.name)
+            window.localStorage.setItem('selfArtist', response.data.item.artists[0].name)
+            window.localStorage.setItem('selfAlbumArt', response.data.item.album.images[0].url)
+            window.localStorage.setItem('selfLink', response.data.item.external_urls.spotify)  
+      }
+    
+      /*f(window.localStorage.getItem('checkedIn') == "false"){
+        console.log("checkin")
+        setCheckedInn(false)
+      } else { 
+        console.log("hmmm")
+        setCheckedInn(true) 
+        console.log(checkedInn)
+      }*/
+
+      //this is the URL
+      const hash = window.location.href;
+      //this is the storage
+      let storageVal = window.localStorage;
+      console.log("THIS IS OUR TOKEN ------>  ",storageVal)
+      console.log("And this is the hash ", hash)
+
+      window.localStorage.setItem("token",hash.split("&")[0].split("=")[1])
+      setToken(token)
+
+      if(window.localStorage.getItem('token') != "undefined"){
+        console.log("SETTING ITEM")
+        window.localStorage.setItem("checkedIn", "true")
+      }
+
+      console.log("checked INNN" + checkedInn)
+
+      if(window.localStorage.getItem('checkedIn') == "true"){
+        console.log("getting frined song")
+        getFriendsSongs()
+      } else {
+        spotifyPull()
+      }
+  }, []);
+
+  const SelfSongHold = () => (
+    <SelfSong
+      song="Bad Habit"
+      artist="Steve Lacey"
+      songImage="https://upload.wikimedia.org/wikipedia/en/6/63/Steve_Lacy_-_Bad_Habit.png"
+      songLink="https://open.spotify.com/track/4k6Uh1HXdhtusDW5y8Gbvy?si=0b26b487ded74e38"
+    />
+  );
+
+
+  if(true){
     return (
       <div class="App">
         {/* <Navbar /> */}
         <div class="header">
-          <button class="search" type="submit" onClick={searchRoute}>
-            <img class="search" src={search} />
-          </button>
           <p class="headerTitle"> BFFR </p>
-          <img class="profilePicture" src={self.profilePic} />
         </div>
-
+  
         <span class="dot"></span>
         <span class="dot2"></span>
         <span class="dot3"></span>
         <span class="dot4"></span>
-
+  
         <div class="selfSong">
           <SelfSongHold />
         </div>
-
+  
         <hr></hr>
-
         <div class="songs">
           {songs.map((s, i) => (
             <SongHold {...s} key={i} />
@@ -156,30 +291,37 @@ function Feed(props) {
         </div>
       </div>
     );
-  } else {
+  }
+  else { 
     return (
-      <div class="App">
-        <Navbar />
-
+        <div class="App">
+        {/* <Navbar /> */}
+        <div class="header">
+          <img class="search" src={search} />
+          <p class="headerTitle"> BFFR </p>
+          <img class="profilePicture" src={self.profilePic} />
+        </div>
         <span class="dot"></span>
         <span class="dot2"></span>
         <span class="dot3"></span>
-        <span class="dot4"></span>
-
+        <span class="dot4"></span>  
         <div class="selfSong">
           <CheckIn></CheckIn>
         </div>
-
+  
         <hr></hr>
 
-        <div class="songs">
+
+        <div class="songsHide">
           {songs.map((s, i) => (
             <SongHold {...s} key={i}></SongHold>
           ))}
         </div>
+
       </div>
     );
   }
+
 }
-export const profilePic = self.profilePic;
+
 export default Feed;

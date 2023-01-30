@@ -55,10 +55,14 @@ function SignUp() {
     setStatusMessage4("none");
     console.log("THIS IS USERID:   " + userID);
   }
+  // const spotify = async (event) => {
+  //   event.preventDefault();
+  //   await axios.get("/spotify")
+  // }
 
   //CREATE USER
   let navigate = useNavigate();
-  const createUser = async (event) => {
+  /*const createUser = async (event) => {
     event.preventDefault();
     const user = {
       name: userName,
@@ -86,14 +90,20 @@ function SignUp() {
             console.log("nah");
           }
           console.log("checking execution ==> " + res.status);
-        });
-      //ONCE SUCCESSFUL, CALL ROUTECHANGE
-      let path = "/spotifyAuth";
-      navigate(path);
-    } catch (err) {
+        })
+        //ONCE SUCCESSFUL, CALL ROUTECHANGE
+        let path = "/feed";
+        navigate(path, );
+    }catch (err) {
       alert(err);
     }
-  };
+  }*/
+
+  //temp createUser while debugging:
+
+  const createUser = () => {
+    navigate('/feed',)
+  }
 
   //end of new line
 
@@ -124,27 +134,25 @@ function SignUp() {
       </div>
 
       <div class="logoHolder">
-        <h1 class="title"> BFFR </h1>
+        <h2 class="title"> BFFR </h2>
         <h2 class="subtitle"> Friends' Music Now </h2>
       </div>
 
       <div class="mainContainer">
         <div class="signUpContainer">
           <form>
-            <h2 class="numberTxt"> Name </h2>
-
+            <h2 class="numberTxt"> Username </h2>
             <input
               class="phoneInput"
               type="text"
-              name="name"
-              placeholder={phName}
+              name="UserID"
+              placeholder="Username"
               maxlength="50"
-              onChange={(evt) => updateName(evt)}
+              onChange={(evt) => updateID(evt)}
             />
             {(statusMessage2 != "none") === true ? (
-              <p class="statusMessage"> {statusMessage2} </p>
+              <p class="statusMessage"> {statusMessage3} </p>
             ) : null}
-
             <h2 class="numberTxt"> Phone Number </h2>
 
             <input
@@ -162,9 +170,10 @@ function SignUp() {
 
             <h2 class="numberTxt"> Password </h2>
             <input
-              class="pwdInput"
-              type="text"
+              class="phoneInput"
+              type="password"
               name="Password"
+              placeholder="Password"
               maxlength="50"
               onChange={(evt) => updatePwd(evt)}
             />
@@ -172,17 +181,7 @@ function SignUp() {
               <p class="statusMessage"> {statusMessage3} </p>
             ) : null}
 
-            <h2 class="numberTxt"> Username </h2>
-            <input
-              class="userIDInput"
-              type="text"
-              name="UserID"
-              maxlength="50"
-              onChange={(evt) => updateID(evt)}
-            />
-            {(statusMessage2 != "none") === true ? (
-              <p class="statusMessage"> {statusMessage3} </p>
-            ) : null}
+
 
             <button
               class="submitButton"
@@ -193,6 +192,13 @@ function SignUp() {
               {" "}
               Sign Up{" "}
             </button>
+
+            {/* <button
+              class="submitButton"
+              type="submit"
+              onClick={spotify}
+              value="Log In -->"
+            ></button> */}
           </form>
         </div>
 

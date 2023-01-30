@@ -84,43 +84,20 @@ const songs = [
 
 function pullInfo(){
     //pull info here
-    //check if user state is true or nah
-
-    //user state auth token wll be added, but local
-
-    //pull user most recently listened to song
-
-    //update the user state object with that data
-
-    //push data to the database
-
-    //if success update the var for user checked in
-
-    //navigate to 
+    console.log("blah blah");
 }
 
 
 
 function CheckIn(props) {
-  const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
-  const REDIRECT_URI = "http://localhost:3000/feed";
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
-  const scope = 'user-read-currently-playing';
-  const state = "";
-  var url = AUTH_ENDPOINT;
-  url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);
-  url += '&client_id=' + encodeURIComponent(CLIENT_ID);
-  url += '&scope=' + encodeURIComponent(scope);
-  url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URI);
-
     return (
       <div class="checkIn">
-        <a href={url}>
-          <div class = "btn">
-            <h1> BFFR RN </h1>
-          </div>
-          </a>
+            <input
+              class="submitButton"
+              type="submit"
+              onClick={pullInfo}
+              value="BFFR RN"
+            />
             <h3 class = "checkInNote"> Check in now to see your friends' music </h3>
       </div>
     );

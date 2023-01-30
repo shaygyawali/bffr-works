@@ -7,7 +7,8 @@ import {
   // getUser,
   deleteUser,
   updateUser,
-  login
+  login,
+  friendSongs
 } from "../controllers/userController.js";
 
 
@@ -33,6 +34,14 @@ router.post(
   // return res.json({stat: res.data.stat})
 });
 
+router.post(
+  '/getFriendSongs',
+  async (req, res) => {
+    console.log("will get friends songs")
+    let a = await friendSongs(req, res)
+    console.log("data: " + res.data)
+  })
+
 //post a new user
 router.post(
   '/createUser', 
@@ -47,6 +56,7 @@ router.delete("/:id", deleteUser);
 
 //update a user
 router.patch("/:id", updateUser);
+
 
 
 export default router;

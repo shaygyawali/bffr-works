@@ -13,6 +13,13 @@ function LogIn() {
   const [profileData, setProfileData] = useState(null);
   const [userNumber, setUserNumber] = useState("");
   const [userPwd, setUserPwd] = useState("");
+  const [userName, setUserName] = useState("");
+  const [friendsList, setFriendsList] = useState([])
+  const [checkedIn, setCheckedIn] = useState(false)
+  const [song, setSong] = useState({
+    
+  })
+
   const [statusMessage, setStatusMessage] = useState("none");
 
   //SPOTIFY AUTH URL PARSING
@@ -40,7 +47,7 @@ function LogIn() {
 
   //login
   let navigate = useNavigate();
-  const loginUser = async (event) => {
+  /*const loginUser = async (event) => {
     event.preventDefault();
     const loginInfo = {
       password: userPwd,
@@ -57,26 +64,31 @@ function LogIn() {
         })
         .then(function (res) {
           //  console.log(res)
-          if (res.data.stat == false) {
-            console.log("USER NOT FOUND!!");
-            setStatusMessage("USER NOT FOUND BITCH");
-          } else if (res.data) {
-            console.log(res.data);
-            navigate("/feed", {
-              state: {
-                username: res.data.username,
-                friendsList: res.data.friendsList,
-                checkedIn: res.data.checkedIn,
-                song: res.data.song,
-              },
-            });
-          }
-        });
-      //ONCE SUCCESSFUL, CALL ROUTECHANGE
-    } catch (err) {
+          if(res.data.stat == false){
+             console.log("USER NOT FOUND!!")
+            setStatusMessage("USER NOT FOUND BITCH")
+          } else if(res.data){
+              console.log(res.data.data)
+              navigate("/feed", {state: {
+                  username: res.data.data.username,
+                  friendsList: res.data.data.friendsList,
+                  checkedIn: res.data.data.checkedIn,
+                  song: {
+                    title: res.data.data.song.title,
+                    artist: res.data.data.song.title,
+                    songImage: res.data.data.song.title,
+                    songLink: res.data.data.song.title
+                  },
+                  number: res.data.data.number
+                }
+              });
+
+            }
+        })
+    }catch (err) {
       alert(err);
     }
-  };
+  }*/
   /////////////////////////////////////////////////////////////////
   {
     /*
@@ -84,13 +96,13 @@ function LogIn() {
     console.log(userNumber);
     if (userNumber.length > 12 || userNumber.length < 12) {
       setStatusMessage("Phone number not valid");
-    } else {
-      let path = "/feed";
-      navigate(path, { state: { token: currentToken, user: user } });
-    }
+    } 
   };
-*/
-  }
+*/}
+
+const loginUser = () => {
+  navigate('/feed',)
+}
 
   //end of new line
 
@@ -127,39 +139,18 @@ function LogIn() {
 
       <div class="mainContainer">
         <div class="loginContainer">
-          <form>
-            <h2 class="numberTxt"> Phone Number </h2>
+        <form >
+        {/* <a href={url} >Login to Spotify</a> */}
+            <h2 class = "numberTxt"> Phone Number </h2>
 
-            <input
-              class="phoneInput"
-              type="tel"
-              name="name"
-              placeholder="000-000-0000"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              maxlength="12"
-              onChange={(evt) => updateNumber(evt)}
-            />
+            <input class = "phoneInput" type="tel" name="name" placeholder="000-000-0000"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" onChange={evt => updateNumber(evt)}/>
+            
+            <h2 class = "numberTxt"> Password </h2>
+            <input class = "phoneInput" type="password" name="Password" placeholder="Password" onChange={evt => updatePwd(evt)}/>
+            { (statusMessage != "none") === true ? (<p class = "statusMessage"> {statusMessage} </p>) : null }
 
-            <h2 class="numberTxt"> Password </h2>
-            <input
-              class="phoneInput"
-              type="password"
-              name="Password"
-              onChange={(evt) => updatePwd(evt)}
-            />
-            {(statusMessage != "none") === true ? (
-              <p class="statusMessage"> {statusMessage} </p>
-            ) : null}
-
-            <button
-              class="submitButton"
-              type="submit"
-              onClick={loginUser}
-              value="Log In -->"
-            >
-              {" "}
-              Log In -->{" "}
-            </button>
+            <button class = "submitButton" type="submit" onClick={loginUser} value="Log In -->" > Log In --> </button>
           </form>
         </div>
 

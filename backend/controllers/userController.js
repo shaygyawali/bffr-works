@@ -29,12 +29,48 @@ export const login = async (req, res) => {
     username: singleUser.username,
     friendsList: singleUser.friendsList,
     checkedIn: singleUser.checkedIn,
-    song:singleUser.song,
+    song: singleUser.song,
     number: singleUser.number
     }});
   }  
 };
+ 
+export const friendSongs = async (req,res) => {
+  const userInfo = {
+    number: req.body.number,
+    friends: req.body.friendsList
+  }
+  
+  const friendsSongs = []
 
+  let singleUser = await User.findOne({'number': userInfo.number})
+  console.log("FRIEND LIST: " + Object.keys(singleUser.friendsList).length)
+  let friendsCount = Object.keys(singleUser.friendsList).length
+  for(let i = 0; i <friendsCount; i++){
+    let friendID = singleUser.friendsList[i]
+    console.log("👆🏽" + friendID)
+    let friend = await User.findOne({_id: friendID})
+    console.log(friend)
+    if(friend.checkedIn == true){
+      console.log("found" + friend)
+      let friendSongInfo = {
+        name: friend.name,
+        title: friend.song.title,
+        artist: friend.song.artist,
+        image: friend.song.songImage,
+        link: friend.song.songLink
+      }
+      friendsSongs.push(friendSongInfo)
+    } else {
+      console.log("not checked in")
+    }
+
+    console.log("all " + friendsSongs)
+
+    return res.send(friendsSongs)
+  }
+
+}
 
 //create a new user
 export const createUser = async (req,res) => {
