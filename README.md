@@ -21,6 +21,3 @@ To run, enter into terminal:
 
 *You can use any data to log in, all content is static and this is only to view a dummy interface*
 
-
-app link: https://bffr.netlify.app/
-waiting to deploy updated code from the branch "additionalQueries"
