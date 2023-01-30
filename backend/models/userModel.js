@@ -2,6 +2,7 @@ import { Schema as _Schema, model } from "mongoose";
 
 const Schema = _Schema;
 
+// User Schema
 const userSchema = new Schema(
   {
     name: {

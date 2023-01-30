@@ -3,9 +3,7 @@ import Component from "react";
 import axios from "axios";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-
 import "intl-tel-input/build/css/intlTelInput.css";
-
 import LogIn from "./components/auth/LogIn";
 import SignUp from "./components/auth/SignUp";
 import PhoneVerification from "./components/auth/PhoneVerification";
@@ -13,7 +11,6 @@ import Profile from "./components/Profile";
 import Feed from "./components/feed/Feed";
 import Search from "./components/search/Search.js"
 import SpotifyAuth from "./components/auth/SpotifyAuth";
-
 
 function App() {
   // new line start
@@ -57,6 +54,7 @@ function App() {
     const onChange = value => console.log(value);
     const onReady = (instance, IntlTelInput) => console.log(instance, IntlTelInput);*/
 
+  // path of routes
   return (
     <BrowserRouter>
       <Routes>

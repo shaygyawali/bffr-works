@@ -4,7 +4,7 @@ import axios from "axios";
 import "./LogIn.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SignUp from "./SignUp";
-import SpotifyAuth from './SpotifyAuth';
+import SpotifyAuth from "./SpotifyAuth";
 
 import "intl-tel-input/build/css/intlTelInput.css";
 
@@ -24,23 +24,24 @@ function LogIn() {
 
   //SPOTIFY AUTH URL PARSING
   const CLIENT_ID = "84fb2e6474644740868e43ea3da113a2";
-  const REDIRECT_URI = "http://localhost:3000/feed";
+  const REDIRECT_URI = "https://bffr.netlify.app/feed";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
-  const scope = 'app-remote-control user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private user-read-recently-played playlist-modify-public user-top-read streaming user-library-read';
+  const scope =
+    "app-remote-control user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private user-read-recently-played playlist-modify-public user-top-read streaming user-library-read";
   const state = "";
   var url = AUTH_ENDPOINT;
-  url += '?response_type='+ encodeURIComponent(RESPONSE_TYPE);
-  url += '&client_id=' + encodeURIComponent(CLIENT_ID);
-  url += '&scope=' + encodeURIComponent(scope);
-  url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URI);
+  url += "?response_type=" + encodeURIComponent(RESPONSE_TYPE);
+  url += "&client_id=" + encodeURIComponent(CLIENT_ID);
+  url += "&scope=" + encodeURIComponent(scope);
+  url += "&redirect_uri=" + encodeURIComponent(REDIRECT_URI);
 
   function updateNumber(evt) {
     setUserNumber(evt.target.value);
     setStatusMessage("none");
     console.log(userNumber);
   }
-  function updatePwd(evt){
+  function updatePwd(evt) {
     setUserPwd(evt.target.value);
   }
 
@@ -50,15 +51,18 @@ function LogIn() {
     event.preventDefault();
     const loginInfo = {
       password: userPwd,
-      number: userNumber
+      number: userNumber,
     };
-    try{
+    try {
       await axios
-        .post(`http://localhost:3001/user/login`, loginInfo)
-        .catch(function(res){
+        .post(
+          `Bffrapp-env.eba-yhbuhmmw.us-east-1.elasticbeanstalk.com/user/login`,
+          loginInfo
+        )
+        .catch(function (res) {
           console.log("check response after login button: ", res);
         })
-       .then(function(res) {
+        .then(function (res) {
           //  console.log(res)
           if(res.data.stat == false){
              console.log("USER NOT FOUND!!")
@@ -86,7 +90,8 @@ function LogIn() {
     }
   }*/
   /////////////////////////////////////////////////////////////////
-{/*
+  {
+    /*
   const routeChange = () => {
     console.log(userNumber);
     if (userNumber.length > 12 || userNumber.length < 12) {
@@ -98,7 +103,6 @@ function LogIn() {
 const loginUser = () => {
   navigate('/feed',)
 }
-
 
   //end of new line
 
@@ -135,7 +139,6 @@ const loginUser = () => {
 
       <div class="mainContainer">
         <div class="loginContainer">
-
         <form >
         {/* <a href={url} >Login to Spotify</a> */}
             <h2 class = "numberTxt"> Phone Number </h2>
@@ -148,7 +151,6 @@ const loginUser = () => {
             { (statusMessage != "none") === true ? (<p class = "statusMessage"> {statusMessage} </p>) : null }
 
             <button class = "submitButton" type="submit" onClick={loginUser} value="Log In -->" > Log In --> </button>
-
           </form>
         </div>
 

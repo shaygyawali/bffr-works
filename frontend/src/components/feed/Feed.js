@@ -107,8 +107,7 @@ const SongHold = ({
 );
 
 
-function changeStatus(){
-  
+function changeStatus(){  
 }
 
 function Feed() {
@@ -285,7 +284,6 @@ function Feed() {
         </div>
   
         <hr></hr>
-  
         <div class="songs">
           {songs.map((s, i) => (
             <SongHold {...s} key={i} />
@@ -303,12 +301,10 @@ function Feed() {
           <p class="headerTitle"> BFFR </p>
           <img class="profilePicture" src={self.profilePic} />
         </div>
-  
         <span class="dot"></span>
         <span class="dot2"></span>
         <span class="dot3"></span>
-        <span class="dot4"></span>
-  
+        <span class="dot4"></span>  
         <div class="selfSong">
           <CheckIn></CheckIn>
         </div>

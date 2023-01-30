@@ -7,7 +7,6 @@ import SpotifyAuth from "./SpotifyAuth";
 // import dotenv from "dotenv";
 // dotenv.config();
 
-
 function SignUp() {
   // new line start
   const [profileData, setProfileData] = useState(null);
@@ -19,8 +18,6 @@ function SignUp() {
   const [statusMessage2, setStatusMessage2] = useState("none");
   const [statusMessage3, setStatusMessage3] = useState("none");
   const [statusMessage4, setStatusMessage4] = useState("none");
-
-  
 
   let names = [
     "Nicki Minaj",
@@ -38,32 +35,32 @@ function SignUp() {
   function updateNumber(evt) {
     setUserNumber(evt.target.value);
     setStatusMessage("none");
-    console.log("THIS IS NUMBER:   "+userNumber);
+    console.log("THIS IS NUMBER:   " + userNumber);
   }
 
   function updateName(evt) {
     setUserName(evt.target.value);
     setStatusMessage2("none");
-    console.log("THIS IS NAME:   "+userName);
+    console.log("THIS IS NAME:   " + userName);
   }
 
-  function updatePwd(evt){
+  function updatePwd(evt) {
     setUserPwd(evt.target.value);
     setStatusMessage3("none");
     console.log("THIS IS PWD:   " + userPwd);
   }
 
-  function updateID(evt){
+  function updateID(evt) {
     setUserID(evt.target.value);
     setStatusMessage4("none");
-    console.log("THIS IS USERID:   "+userID);
+    console.log("THIS IS USERID:   " + userID);
   }
   // const spotify = async (event) => {
   //   event.preventDefault();
   //   await axios.get("/spotify")
   // }
 
-//CREATE USER
+  //CREATE USER
   let navigate = useNavigate();
   /*const createUser = async (event) => {
     event.preventDefault();
@@ -74,19 +71,24 @@ function SignUp() {
       number: userNumber,
       friendsList: [],
       pendingFriendsList: [],
-      checkedIn: false
+      checkedIn: false,
     };
-    try{
+    try {
       await axios
-        .post(`http://localhost:3001/user/createUser`, user)
-        .catch(function(res){
+        .post(
+          `http://bffrapp-env.eba-yhbuhmmw.us-east-1.elasticbeanstalk.com/user/createUser`,
+          user
+        )
+        .catch(function (res) {
           // console.log("check response after creating user: ", res);
         })
-        .then(function(res) {
+        .then(function (res) {
           // console.log(res.data.stat)
-          if(res.data.stat == true){
+          if (res.data.stat == true) {
             // console.log("CAN CREATE USER")
-          } else {console.log("nah")}
+          } else {
+            console.log("nah");
+          }
           console.log("checking execution ==> " + res.status);
         })
         //ONCE SUCCESSFUL, CALL ROUTECHANGE
@@ -103,7 +105,7 @@ function SignUp() {
     navigate('/feed',)
   }
 
-//end of new line
+  //end of new line
 
   const inputProps = {
     placeholder: "ReactIntlTelInput",
@@ -180,8 +182,6 @@ function SignUp() {
             ) : null}
 
 
-
-            
 
             <button
               class="submitButton"

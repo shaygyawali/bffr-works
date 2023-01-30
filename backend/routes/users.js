@@ -1,4 +1,6 @@
 import express from "express";
+
+// create user
 import {
   createUser,
   getUsers,
@@ -47,6 +49,7 @@ router.post(
     let success = await createUser(req,res)
     return res.json({stat: res.data.stat})
 });
+
 
 //delete a user
 router.delete("/:id", deleteUser);

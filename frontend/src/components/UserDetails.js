@@ -1,3 +1,4 @@
+// User Details
 const UserDetails = ({ user }) => {
   return (
     <div className="user-details">

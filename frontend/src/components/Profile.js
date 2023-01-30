@@ -18,7 +18,9 @@ const Profile = () => {
     <>
       <Navbar />
       <div className="profile">
-        <h2>Profile</h2>
+        <h2 style={{ marginTop: 200, textAlign: "center" }}>
+          Welcome to your Profile!
+        </h2>
         <div className="searchUsers">
           {users && users.map((user) => <p key={user._id}>{user.name}</p>)}
         </div>

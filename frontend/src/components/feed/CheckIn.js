@@ -84,7 +84,6 @@ const songs = [
 
 function pullInfo(){
     //pull info here
-
     //check if user state is true or nah
 
     //user state auth token wll be added, but local
